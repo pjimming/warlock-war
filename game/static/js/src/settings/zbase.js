@@ -101,6 +101,8 @@ class Settings {
 
         this.$register.hide();
 
+        this.$acwing_logo = this.$settings.find(".ac-game-settings-other-login img");
+
         this.root.$ac_game.append(this.$settings);
 
         this.start();
@@ -112,8 +114,13 @@ class Settings {
     }
 
     add_listening_events() {    // 响应操作
+        let outer = this;
         this.add_listening_events_login();
         this.add_listening_events_register();
+
+        this.$acwing_logo.click(function() {
+            outer.acwing_login();
+        });
     }
 
     add_listening_events_login() {  // 响应登录面板操作
@@ -137,6 +144,24 @@ class Settings {
 
         this.$register_submit.click(function() {
             outer.register_on_remote();
+        });
+    }
+
+    acwing_login() {    // acwing一键登录
+        $.ajax({
+            url: "https://app1356.acapp.acwing.com.cn/settings/acwing/web/apply_code/",
+            type: "GET",
+            success: function(resp) {
+                console.log(resp);
+                if (resp.result === "success") {
+                    window.location.replace(resp.apply_code_url)；
+                    /*
+                     * 用户如果同意授权重定向至redirect_uri
+                     * 返回参数code和state
+                     * 若拒绝授权，不会发生重定向
+                     */
+                }
+            }
         });
     }
 
