@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-1+ue^sd11%8j6v1xh_pdqnnhp+x7np!p*xcs2b4adq!y)su7_h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["119.23.178.70"]
+ALLOWED_HOSTS = ["119.23.178.70", "app1356.acapp.acwing.com.cn"]
 
 
 # Application definition
@@ -129,3 +129,16 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Redis
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    },
+}
+USER_AGENTS_CACHE = 'default'
