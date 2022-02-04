@@ -46,11 +46,15 @@ def receive_code(request):
     while User.objects.filter(username=username).exists():
         username += str(randint(0, 9))
 
+    # 创建新用户
     user = User.objects.create(username=username)
     player = Player.objects.create(user=user, photo=photo, openid=openid)
 
+
+    # 登录
     login(request, user)
 
+    # 重定向到index
     return redirect("index")
 
 

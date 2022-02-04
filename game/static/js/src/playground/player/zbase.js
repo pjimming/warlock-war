@@ -147,6 +147,7 @@ class Player extends AcGameObject { // 游戏对象
             }
         }
 
+
         this.render();
     }
 

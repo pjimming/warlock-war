@@ -325,6 +325,7 @@ class Player extends AcGameObject { // 游戏对象
             }
         }
 
+
         this.render();
     }
 
@@ -441,6 +442,7 @@ class AcGamePlayground {
         return colors[Math.floor(Math.random() * 7)];
     }
 
+
     start() {
     }
 
@@ -454,7 +456,7 @@ class AcGamePlayground {
         this.players = [];  // 存储所有存活的游戏对象
         this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, "white", this.height * 0.2, true)); // 生成user对象
 
-        for (let i = 0; i < 5; i++) {   // 生成ai对象
+        for (let i = 0; i < 7; i++) {   // 生成ai对象
             this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, this.get_random_color(), this.height * 0.2, false));
         }
     }
@@ -503,7 +505,7 @@ class Settings {
         <br>
         <div class="ac-game-settings-other-login">
             <div>
-                使用第三方一键登录(开发中)
+                使用第三方一键登录
             </div>
             <img width=35 src="https://app1356.acapp.acwing.com.cn/static/image/settings/acwing_logo.png">
         </div>
@@ -540,7 +542,7 @@ class Settings {
         <br>
         <div class="ac-game-settings-other-login">
             <div>
-                使用第三方一键登录(开发中)
+                使用第三方一键登录
             </div>
             <img width=35 src="https://app1356.acapp.acwing.com.cn/static/image/settings/acwing_logo.png">
         </div>
@@ -621,6 +623,11 @@ class Settings {
                 console.log(resp);
                 if (resp.result === "success") {
                     window.location.replace(resp.apply_code_url);
+                    /*
+                     * 用户如果同意授权重定向至redirect_uri
+                     * 返回参数code和state
+                     * 若拒绝授权，不会发生重定向
+                     */
                 }
             }
         });
