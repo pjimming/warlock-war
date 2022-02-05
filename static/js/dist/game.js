@@ -124,6 +124,13 @@ class GameMap extends AcGameObject {
     start() {
     }
 
+    resize() {
+        this.ctx.canvas.width = this.playground.width;
+        this.ctx.canvas.height = this.playground.height;
+        this.ctx.fillStyle = "rgba(0,0,0, 1)";
+        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    }
+
     update() {
         this.render();
     }
@@ -147,7 +154,7 @@ class Particle extends AcGameObject {   // 被击打时的粒子效果
         this.speed = speed;
         this.move_length = move_length;
         this.friction = 0.9;
-        this.eps = 1;
+        this.eps = 0.01;
     }
 
     start() {
@@ -169,8 +176,9 @@ class Particle extends AcGameObject {   // 被击打时的粒子效果
     }
 
     render() {  // 绘制图像
+        let scale = this.playground.scale;
         this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
         this.ctx.fillStyle = this.color;
         this.ctx.fill();
     }
@@ -194,8 +202,11 @@ class Player extends AcGameObject { // 游戏对象
         this.cur_skill = null;
         this.friction = 0.9;
         this.spent_time = 0;
+        this.damage_x = 0;
+        this.damage_y = 0;
+        this.damage_speed = 0;
 
-        this.eps = 0.1;
+        this.eps = 0.01;
 
         if (this.is_me) {   // 绘制自己头像
             this.img = new Image();
@@ -207,8 +218,8 @@ class Player extends AcGameObject { // 游戏对象
         if (this.is_me) {   // 玩家操作
             this.add_listening_events();
         } else {    // ai随机移动
-            let tx = Math.random() * this.playground.width;
-            let ty = Math.random() * this.playground.height;
+            let tx = Math.random() * this.playground.width / this.playground.scale;
+            let ty = Math.random() * this.playground.height / this.playground.scale;
             this.move_to(tx, ty);
         }
     }
@@ -221,10 +232,10 @@ class Player extends AcGameObject { // 游戏对象
         this.playground.game_map.$canvas.mousedown(function(e) {    // 对鼠标操作做出回应
             const rect = outer.ctx.canvas.getBoundingClientRect();
             if (e.which === 3) {    // 鼠标右键
-                outer.move_to(e.clientX - rect.left, e.clientY - rect.top);
+                outer.move_to((e.clientX - rect.left) / outer.playground.scale, (e.clientY - rect.top) / outer.playground.scale);
             } else if (e.which === 1) { // 鼠标左键
                 if (outer.cur_skill === "fireball") {
-                    outer.shoot_fireball(e.clientX - rect.left, e.clientY - rect.top);
+                    outer.shoot_fireball((e.clientX - rect.left) / outer.playground.scale, (e.clientY - rect.top) / outer.playground.scale);
                 }
 
                 outer.cur_skill = null;
@@ -242,14 +253,14 @@ class Player extends AcGameObject { // 游戏对象
     shoot_fireball(tx, ty) {    // 发射火球
         let x = this.x;
         let y = this.y;
-        let radius = this.playground.height * 0.01;
+        let radius = 0.01;
         let angle = Math.atan2(ty - y, tx - x);
         let vx = Math.cos(angle);
         let vy = Math.sin(angle);
         let color = "orange";
-        let speed = this.playground.height * 0.6;
-        let move_length = this.playground.height * 1;
-        new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, this.playground.height * 0.01);
+        let speed = 0.6;
+        let move_length = 1;
+        new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, 0.01);
     }
 
     is_attacked(angle, damage) {    // 被攻击
@@ -266,7 +277,7 @@ class Player extends AcGameObject { // 游戏对象
             new Particle(this.playground, x, y, radius, vx, vy, color, speed, move_length);
         }
         this.radius -= damage;
-        if (this.radius < 10) { // 若半径小于10，销毁该对象
+        if (this.radius < this.eps) { // 若半径小于10，销毁该对象
             this.destroy();
             return false;
         }
@@ -292,6 +303,11 @@ class Player extends AcGameObject { // 游戏对象
     }
 
     update() {  // 每秒更新六十次画布
+        this.update_move();
+        this.render();
+    }
+
+    update_move() {
         this.spent_time += this.timedelta / 1000;
         if (!this.is_me && this.spent_time > 4 && Math.random() < 1 / 180.0) {  // ai对随机对象进行射击
             let player = this.playground.players[Math.floor(Math.random() * this.playground.players.length)];
@@ -302,7 +318,7 @@ class Player extends AcGameObject { // 游戏对象
             }
         }
 
-        if (this.damage_speed > 10) {   // 被击中时的后退效果
+        if (this.damage_speed > this.eps) {   // 被击中时的后退效果
             this.vx = this.vy = 0;
             this.move_length = 0;
             this.x += this.damage_x * this.damage_speed * this.timedelta / 1000;
@@ -313,8 +329,8 @@ class Player extends AcGameObject { // 游戏对象
                 this.move_length = 0;
                 this.vx = this.vy = 0;
                 if (!this.is_me) {  // ai
-                    let tx = Math.random() * this.playground.width;
-                    let ty = Math.random() * this.playground.height;
+                    let tx = Math.random() * this.playground.width / this.playground.scale;
+                    let ty = Math.random() * this.playground.height / this.playground.scale;
                     this.move_to(tx, ty);
                 }
             } else {    // move
@@ -325,22 +341,21 @@ class Player extends AcGameObject { // 游戏对象
             }
         }
 
-
-        this.render();
     }
 
     render() {  // 绘制图像
+        let scale = this.playground.scale;
         if (this.is_me) {
             this.ctx.save();
             this.ctx.beginPath();
-            this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
             this.ctx.stroke();
             this.ctx.clip();
-            this.ctx.drawImage(this.img, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+            this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale);
             this.ctx.restore();
         } else {
             this.ctx.beginPath();
-            this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
             this.ctx.fillStyle = this.color;
             this.ctx.fill();
         }
@@ -372,7 +387,7 @@ class FireBall extends AcGameObject {   // skill:fireball 火球 可击退，造
         this.move_length = move_length;
         this.damage = damage;
 
-        this.eps = 0.1;
+        this.eps = 0.01;
     }
 
     start() {
@@ -419,8 +434,9 @@ class FireBall extends AcGameObject {   // skill:fireball 火球 可击退，造
     }
 
     render() {  // 绘制图像
+        let scale = this.playground.scale;
         this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
         this.ctx.fillStyle = this.color;
         this.ctx.fill();
     }
@@ -433,6 +449,7 @@ class AcGamePlayground {
         this.$playground = $(`<div class="ac-game-playground"></div>`);
 
         this.hide();
+        this.root.$ac_game.append(this.$playground);
 
         this.start();
     }
@@ -444,20 +461,38 @@ class AcGamePlayground {
 
 
     start() {
+        let outer = this;
+        $(window).resize(function() {
+            outer.resize();
+        });
+    }
+
+    resize() {
+        this.width = this.$playground.width();
+        this.height = this.$playground.height();
+        let unit = Math.min(this.width / 16, this.height / 9);
+        this.width = unit * 16;
+        this.height = unit * 9;
+        this.scale = this.height;
+
+        if (this.game_map) {
+            this.game_map.resize();
+        }
     }
 
     show() {    //打开playground界面
         this.$playground.show();
-        this.root.$ac_game.append(this.$playground);
+
+        this.resize();
 
         this.width = this.$playground.width();
         this.height = this.$playground.height();
         this.game_map = new GameMap(this);  // 生成地图
         this.players = [];  // 存储所有存活的游戏对象
-        this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, "white", this.height * 0.2, true)); // 生成user对象
-
+        this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.2, true)); // 生成user对象
+        // 为什么游戏对象的y属性是0.5呢？因为scale === height
         for (let i = 0; i < 7; i++) {   // 生成ai对象
-            this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, this.get_random_color(), this.height * 0.2, false));
+            this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, this.get_random_color(), 0.2, false));
         }
     }
 

@@ -12,7 +12,7 @@ class Particle extends AcGameObject {   // 被击打时的粒子效果
         this.speed = speed;
         this.move_length = move_length;
         this.friction = 0.9;
-        this.eps = 1;
+        this.eps = 0.01;
     }
 
     start() {
@@ -34,8 +34,9 @@ class Particle extends AcGameObject {   // 被击打时的粒子效果
     }
 
     render() {  // 绘制图像
+        let scale = this.playground.scale;
         this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
         this.ctx.fillStyle = this.color;
         this.ctx.fill();
     }

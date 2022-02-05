@@ -14,7 +14,7 @@ class FireBall extends AcGameObject {   // skill:fireball 火球 可击退，造
         this.move_length = move_length;
         this.damage = damage;
 
-        this.eps = 0.1;
+        this.eps = 0.01;
     }
 
     start() {
@@ -61,8 +61,9 @@ class FireBall extends AcGameObject {   // skill:fireball 火球 可击退，造
     }
 
     render() {  // 绘制图像
+        let scale = this.playground.scale;
         this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
         this.ctx.fillStyle = this.color;
         this.ctx.fill();
     }
