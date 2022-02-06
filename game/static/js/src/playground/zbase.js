@@ -35,19 +35,31 @@ class AcGamePlayground {
         }
     }
 
-    show() {    //打开playground界面
+    show(mode) {    //打开playground界面
+        let outer = this;
         this.$playground.show();
-
-        this.resize();
 
         this.width = this.$playground.width();
         this.height = this.$playground.height();
         this.game_map = new GameMap(this);  // 生成地图
+
+        this.resize();
+
         this.players = [];  // 存储所有存活的游戏对象
-        this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.2, true)); // 生成user对象
+        this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.2, "me", this.root.settings.username, this.root.settings.photo)); // 生成user对象
         // 为什么游戏对象的y属性是0.5呢？因为scale === height
-        for (let i = 0; i < 7; i++) {   // 生成ai对象
-            this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, this.get_random_color(), 0.2, false));
+
+        if (mode === "single mdoe") {
+            for (let i = 0; i < 7; i++) {   // 生成ai对象
+                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, this.get_random_color(), 0.2, "robot"));
+            }
+        } else if (mode === "multi mode") {
+            this.mps = new MultiPlayerSocket(this);
+            this.mps.uuid = this.players[0].uuid;
+
+            this.mps.ws.onopen = function() {
+                outer.mps.send_create_player(outer.root.settings.username, outer.root.settings.photo);
+            };
         }
     }
 
