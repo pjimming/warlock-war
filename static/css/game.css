@@ -7,7 +7,7 @@
 }
 
 .ac-game-settings-login {   /*加载登录注册页面的小菜单*/
-    height: 41vh;
+    height: 33vh;
     width: 20vw;
     position: relative;
     top: 50%;
@@ -105,7 +105,7 @@
 }
 
 .ac-game-settings-register {    /*注册界面小菜单*/
-    height: 49vh;
+    height: 41vh;
     width: 20vw;
     position: relative;
     top: 50%;

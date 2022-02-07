@@ -34,13 +34,6 @@ class Settings {
         <div class="ac-game-settings-option">
             注册
         </div>
-        <br>
-        <div class="ac-game-settings-other-login">
-            <div>
-                使用第三方一键登录
-            </div>
-            <img width=35 src="https://app1356.acapp.acwing.com.cn/static/image/settings/acwing_logo.png">
-        </div>
     </div>
     <div class="ac-game-settings-register">
         <div class="ac-game-settings-title">
@@ -71,13 +64,6 @@ class Settings {
         <div class="ac-game-settings-option">
             登录
         </div>
-        <br>
-        <div class="ac-game-settings-other-login">
-            <div>
-                使用第三方一键登录
-            </div>
-            <img width=35 src="https://app1356.acapp.acwing.com.cn/static/image/settings/acwing_logo.png">
-        </div>
     </div>
 </div>
 `);
@@ -101,7 +87,6 @@ class Settings {
 
         this.$register.hide();
 
-        this.$acwing_logo = this.$settings.find(".ac-game-settings-other-login img");
 
         this.root.$ac_game.append(this.$settings);
 
@@ -121,10 +106,6 @@ class Settings {
         let outer = this;
         this.add_listening_events_login();
         this.add_listening_events_register();
-
-        this.$acwing_logo.click(function() {
-            outer.acwing_login();
-        });
     }
 
     add_listening_events_login() {  // 响应登录面板操作
@@ -156,7 +137,6 @@ class Settings {
             url: "https://app1356.acapp.acwing.com.cn/settings/acwing/web/apply_code/",
             type: "GET",
             success: function(resp) {
-                console.log(resp);
                 if (resp.result === "success") {
                     window.location.replace(resp.apply_code_url);
                     /*
@@ -183,7 +163,6 @@ class Settings {
                 password: password,
             },
             success: function(resp) {
-                console.log(resp);
                 if (resp.result === "success") {
                     location.reload();
                 } else {
@@ -195,19 +174,18 @@ class Settings {
 
     logout_on_remote() {    // 在远程服务器上登出
         if (this.platform === "ACAPP") {
-            return false;
-        }
-
-        $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/logout/",
-            type: "GET",
-            success: function(resp) {
-                console.log(resp);
-                if (resp.result === "success") {
-                    location.reload();
+            this.root.acwingos.api.window.close();
+        } else {
+            $.ajax({
+                url: "https://app1356.acapp.acwing.com.cn/settings/logout/",
+                type: "GET",
+                success: function(resp) {
+                    if (resp.result === "success") {
+                        location.reload();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     register_on_remote() {  // 在远程服务器上注册
@@ -226,7 +204,6 @@ class Settings {
                 password_confirm: password_confirm,
             },
             success: function(resp) {
-                console.log(resp);
                 if (resp.result === "success") {
                     location.reload();
                 } else {
@@ -246,43 +223,11 @@ class Settings {
         this.$register.show();
     }
 
-    /*
-    acapp_login(appid, redirect_uri, scope, state) {
-        let outer = this;
-
-        this.root.acwingos.api.oauth2.authorize(appid, redirect_uri, scope, state, function(resp) {
-            console.log("called from acapp_login function");
-            console.log(resp);
-            if (resp.result === "success") {
-                outer.username = resp.username;
-                outer.photo = resp.photo;
-                outer.hide();
-                outer.root.menu.show();
-            }
-        });
-    }
-
-    getinfo_acapp() {
-        let outer = this;
-
-        $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/acwing/acapp/apply_code",
-            type: "GET",
-            success: function(resp) {
-                if (resp.result === "success") {
-                    outer.acapp_login(resp.appid, resp.redirect_uri, resp.scope, resp.state);
-                }
-            }
-        });
-    }
-    */
 
     acapp_login(appid, redirect_uri, scope, state) {
         let outer = this;
 
         this.root.acwingos.api.oauth2.authorize(appid, redirect_uri, scope, state, function(resp) {
-            console.log("called from acapp_login function");
-            console.log(resp);
             if (resp.result === "success") {
                 outer.username = resp.username;
                 outer.photo = resp.photo;
@@ -318,7 +263,6 @@ class Settings {
                 platform: outer.platform,
             },
             success: function(resp) {
-                console.log(resp);
                 if (resp.result === "success") {    // 已登录，返回登录用户信息
                     outer.username = resp.username;
                     outer.photo = resp.photo;

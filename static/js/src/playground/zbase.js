@@ -43,13 +43,18 @@ class AcGamePlayground {
         this.height = this.$playground.height();
         this.game_map = new GameMap(this);  // 生成地图
 
+        this.mode = mode;
+        this.state = "waiting";
+        this.notice_board = new NoticeBoard(this);
+        this.player_count = 0;
+
         this.resize();
 
         this.players = [];  // 存储所有存活的游戏对象
         this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.2, "me", this.root.settings.username, this.root.settings.photo)); // 生成user对象
         // 为什么游戏对象的y属性是0.5呢？因为scale === height
 
-        if (mode === "single mdoe") {
+        if (mode === "single mode") {
             for (let i = 0; i < 7; i++) {   // 生成ai对象
                 this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, this.get_random_color(), 0.2, "robot"));
             }
