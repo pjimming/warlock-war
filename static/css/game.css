@@ -7,7 +7,7 @@
 }
 
 .ac-game-settings-login {   /*加载登录注册页面的小菜单*/
-    height: 33vh;
+    height: 34vh;
     width: 20vw;
     position: relative;
     top: 50%;
@@ -126,7 +126,7 @@
 .ac-game-menu-field {   /*设置菜单位置*/
     width: 20vw;
     position: relative; /*相对位置*/
-    top: 50%;
+    top: 40%;
     left: 15%;
 }
 
@@ -141,6 +141,18 @@
     border-radius: 20px;    /*矩形圆角*/
     letter-spacing: 0.5vw;  /*字符间空隙*/
     cursor: pointer;        /*更改指针状态*/
+}
+
+.ac-game-menu-helper {
+    color: white;
+    width: 32vw;
+    font-size: 2.5vh;
+    text-align: center;
+    position: relative;
+    top: 0;
+    left: 34%;
+    background-color: rgba(39,21,28, 0.3);
+    border-radius: 20px;
 }
 
 .ac-game-menu-field-item:hover {

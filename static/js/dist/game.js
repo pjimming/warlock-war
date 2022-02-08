@@ -3,6 +3,12 @@ class AcGameMenu {
         this.root = root;
         this.$menu = $(`
 <div class="ac-game-menu">
+    <div class="ac-game-menu-helper">
+        ===推荐PC端游玩===<br>
+        移动：鼠标右键点击桌面即可移动至目标地点<br>
+        攻击：按Q键 + 鼠标左键即可向目标处发射火球<br>
+        闪现：按F键 + 鼠标左键即可瞬移至目标处
+    </div>
     <div class="ac-game-menu-field">
         <div class="ac-game-menu-field-item ac-game-menu-field-item-single-mode">
             单机模式
@@ -257,6 +263,10 @@ class Player extends AcGameObject { // 游戏对象
             this.fireball_coldtime = 1;
             this.fireball_img = new Image();
             this.fireball_img.src = "https://cdn.acwing.com/media/article/image/2021/12/02/1_9340c86053-fireball.png";
+
+            this.blink_coldtime = 3;
+            this.blink_img = new Image();
+            this.blink_img.src = "https://cdn.acwing.com/media/article/image/2021/12/02/1_daccabdc53-blink.png";
         }
     }
 
@@ -311,6 +321,16 @@ class Player extends AcGameObject { // 游戏对象
                     if (outer.playground.mode === "multi mode") {
                         outer.playground.mps.send_shoot_fireball(tx, ty, fireball.uuid);
                     }
+                } else if (outer.cur_skill === "blink") {
+                    if (outer.blink_coldtime > outer.eps) {
+                        return false;
+                    }
+
+                    outer.blink(tx, ty);
+
+                    if (outer.playground.mode === "multi mode") {
+                        outer.playground.mps.send_blink(tx, ty);
+                    }
                 }
 
                 outer.cur_skill = null;
@@ -319,18 +339,36 @@ class Player extends AcGameObject { // 游戏对象
 
         $(window).keydown(function(e) { // 对键盘操作做出回应
             if (outer.playground.state !== "fighting") {
-                return false;
+                return true;
             }
 
             if (e.which === 81) {   // key-q
                 if (outer.fireball_coldtime > outer.eps) {
-                    return false;
+                    return true;
                 }
 
                 outer.cur_skill = "fireball";
                 return false;
+            } else if (e.which === 70) {
+                if (outer.blink_coldtime > outer.eps) {
+                    return true;
+                }
+
+                outer.cur_skill = "blink";
+                return false;
             }
         });
+    }
+
+    blink(tx, ty) {
+        let dist = this.get_dist(this.x, this.y, tx, ty);
+        dist = Math.min(dist, 0.8);
+        let angle = Math.atan2(ty - this.y, tx - this.x);
+        this.x += dist * Math.cos(angle);
+        this.y += dist * Math.sin(angle);
+
+        this.blink_coldtime = 3;
+        this.move_length = 0;
     }
 
     shoot_fireball(tx, ty) {    // 发射火球
@@ -421,6 +459,9 @@ class Player extends AcGameObject { // 游戏对象
     update_coldtime() {
         this.fireball_coldtime -= this.timedelta / 1000;
         this.fireball_coldtime = Math.max(this.fireball_coldtime, 0);
+
+        this.blink_coldtime -= this.timedelta / 1000;
+        this.blink_coldtime = Math.max(this.blink_coldtime, 0);
     }
 
     update_move() {
@@ -495,11 +536,30 @@ class Player extends AcGameObject { // 游戏对象
         if (this.fireball_coldtime > 0) {
             this.ctx.beginPath();
             this.ctx.moveTo(x * scale, y * scale);
-            this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.fireball_coldtime) - Math.PI / 2, true);
+            this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.fireball_coldtime / 1) - Math.PI / 2, true);
             this.ctx.lineTo(x * scale, y * scale);
             this.ctx.fillStyle = "rgba(0, 0, 255, 0.6)";
             this.ctx.fill();
         }
+
+        x = 1.62, y = 0.9, r = 0.04;
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2, false);
+        this.ctx.stroke();
+        this.ctx.clip();
+        this.ctx.drawImage(this.blink_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
+        this.ctx.restore();
+
+        if (this.blink_coldtime > 0) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(x * scale, y * scale);
+            this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.blink_coldtime / 3) - Math.PI / 2, true);
+            this.ctx.lineTo(x * scale, y * scale);
+            this.ctx.fillStyle = "rgba(0, 0, 255, 0.6)";
+            this.ctx.fill();
+        }
+
 
     }
 
@@ -512,8 +572,14 @@ class Player extends AcGameObject { // 游戏对象
         for (let i = 0; i < this.playground.players.length; i++) {
             if (this.playground.players[i] === this) {
                 this.playground.players.splice(i, 1);
+                this.playground.player_count -= 1;
                 break;
             }
+        }
+
+        if (this.playground.player_count === 1 && this.playground.state === "fighting") {
+            this.playground.state = "over";
+            this.playground.notice_board.write("恭喜，您赢了！！！");
         }
     }
 }
@@ -647,6 +713,8 @@ class MultiPlayerSocket {
                 outer.receive_shoot_fireball(uuid, data.tx, data.ty, data.ball_uuid);
             } else if (event === "attack") {
                 outer.receive_attack(uuid, data.attackee_uuid, data.x, data.y, data.angle, data.damage, data.ball_uuid);
+            } else if (event === "blink") {
+                outer.receive_blink(uuid, data.tx, data.ty);
             }
         };
     }
@@ -746,6 +814,23 @@ class MultiPlayerSocket {
         let attackee = this.get_player(attackee_uuid);
         if (attacker && attackee) {
             attackee.receive_attack(x, y, angle, damage, ball_uuid, attacker);
+        }
+    }
+
+    send_blink(tx, ty) {
+        let outer = this;
+        this.ws.send(JSON.stringify({
+            'event': "blink",
+            'uuid': outer.uuid,
+            'tx': tx,
+            'ty': ty,
+        }));
+    }
+
+    receive_blink(uuid, tx, ty) {
+        let player = this.get_player(uuid);
+        if (player) {
+            player.blink(tx, ty);
         }
     }
 }

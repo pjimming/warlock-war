@@ -3,6 +3,12 @@ class AcGameMenu {
         this.root = root;
         this.$menu = $(`
 <div class="ac-game-menu">
+    <div class="ac-game-menu-helper">
+        ===推荐PC端游玩===<br>
+        移动：鼠标右键点击桌面即可移动至目标地点<br>
+        攻击：按Q键 + 鼠标左键即可向目标处发射火球<br>
+        闪现：按F键 + 鼠标左键即可瞬移至目标处
+    </div>
     <div class="ac-game-menu-field">
         <div class="ac-game-menu-field-item ac-game-menu-field-item-single-mode">
             单机模式
