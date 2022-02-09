@@ -9,7 +9,7 @@ class AcGameObject {
         this.uuid = this.create_uuid();
     }
 
-    create_uuid() {
+    create_uuid() { // 创建用户的uuid用于唯一标识
         let res = "";
         for (let i = 0; i < 8; i++) {
             let x = parseInt(Math.floor(Math.random() * 10));

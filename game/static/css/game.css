@@ -143,7 +143,7 @@
     cursor: pointer;        /*更改指针状态*/
 }
 
-.ac-game-menu-helper {
+.ac-game-menu-helper {  /*菜单界面游玩提示*/
     color: white;
     width: 32vw;
     font-size: 2.5vh;

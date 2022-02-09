@@ -12,7 +12,7 @@ class GameMap extends AcGameObject {
     start() {
     }
 
-    resize() {
+    resize() {  // 更改界面大小
         this.ctx.canvas.width = this.playground.width;
         this.ctx.canvas.height = this.playground.height;
         this.ctx.fillStyle = "rgba(0,0,0, 1)";

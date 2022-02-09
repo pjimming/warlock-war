@@ -4,7 +4,7 @@ from random import randint
 from django.core.cache import cache
 
 
-def get_state():
+def get_state():    # 创建校验码，防止站外恶意攻击
     res = ""
     for i in range(8):
         res += str(randint(0, 9))
@@ -13,7 +13,7 @@ def get_state():
 
 def apply_code(request):
     appid = "1356"
-    redirect_uri = quote("https://app1356.acapp.acwing.com.cn/settings/acwing/acapp/receive_code/")
+    redirect_uri = quote("https://app1356.acapp.acwing.com.cn/settings/acwing/acapp/receive_code/") # 重定向
     scope = "userinfo"
     state = get_state()
 

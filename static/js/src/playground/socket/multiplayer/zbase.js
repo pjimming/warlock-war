@@ -1,4 +1,4 @@
-class MultiPlayerSocket {
+class MultiPlayerSocket {   // 多人服务器接口
     constructor(playground) {
         this.playground = playground;
 
@@ -11,16 +11,22 @@ class MultiPlayerSocket {
         this.receive();
     }
 
-    receive() {
+    /*
+     * send向服务器发送用户的操作信息
+     * receive从服务器接收其他用户的操作信息
+     */
+
+    receive() { // 接收服务器发过来的信息
         let outer = this;
 
         this.ws.onmessage = function(e) {
             let data = JSON.parse(e.data);
             let uuid = data.uuid;
-            if (uuid === outer.uuid) {
+            if (uuid === outer.uuid) {  // 忽略自己发送的信息
                 return false;
             }
 
+            // 路由
             let event = data.event;
             if (event === "create_player") {
                 outer.receive_create_player(uuid, data.username, data.photo);
@@ -36,7 +42,7 @@ class MultiPlayerSocket {
         };
     }
 
-    get_player(uuid) {
+    get_player(uuid) {  // 通过uuid找到对应的用户
         let players = this.playground.players;
         for (let i = 0; i < players.length; i++) {
             let player = players[i];
@@ -48,7 +54,7 @@ class MultiPlayerSocket {
         return null;
     }
 
-    send_create_player(username, photo) {
+    send_create_player(username, photo) {   // 发送创建用户的信息
         let outer = this;
         this.ws.send(JSON.stringify({
             'event': "create_player",
@@ -58,7 +64,7 @@ class MultiPlayerSocket {
         }));
     }
 
-    receive_create_player(uuid, username, photo) {
+    receive_create_player(uuid, username, photo) {  // 接收其他用户被创建的信息
         let player = new Player(
             this.playground,
             this.playground.width / 2 / this.playground.scale,
@@ -75,7 +81,7 @@ class MultiPlayerSocket {
         this.playground.players.push(player);
     }
 
-    send_move_to(tx, ty) {
+    send_move_to(tx, ty) {  // 向服务器发送移动信息
         let outer = this;
         this.ws.send(JSON.stringify({
             'event': "move_to",
@@ -85,7 +91,7 @@ class MultiPlayerSocket {
         }));
     }
 
-    receive_move_to(uuid, tx, ty) {
+    receive_move_to(uuid, tx, ty) { // 接收其他用户移动信息
         let player = this.get_player(uuid);
 
         if (player) {
@@ -93,7 +99,7 @@ class MultiPlayerSocket {
         }
     }
 
-    send_shoot_fireball(tx, ty, ball_uuid) {
+    send_shoot_fireball(tx, ty, ball_uuid) {    // 发射火球
         let outer = this;
         this.ws.send(JSON.stringify({
             'event': "shoot_fireball",
@@ -104,7 +110,7 @@ class MultiPlayerSocket {
         }));
     }
 
-    receive_shoot_fireball(uuid, tx, ty, ball_uuid) {
+    receive_shoot_fireball(uuid, tx, ty, ball_uuid) {   // 接收发射火球
         let player = this.get_player(uuid);
         if (player) {
             let fireball = player.shoot_fireball(tx, ty);
@@ -112,7 +118,7 @@ class MultiPlayerSocket {
         }
     }
 
-    send_attack(attackee_uuid, x, y, angle, damage, ball_uuid) {
+    send_attack(attackee_uuid, x, y, angle, damage, ball_uuid) {    // 向服务器发送用户被击中的信息
         let outer = this;
         this.ws.send(JSON.stringify({
             'event': "attack",
@@ -126,7 +132,7 @@ class MultiPlayerSocket {
         }));
     }
 
-    receive_attack(uuid, attackee_uuid, x, y, angle, damage, ball_uuid) {
+    receive_attack(uuid, attackee_uuid, x, y, angle, damage, ball_uuid) {   // 接收某用户被击中的信息
         let attacker = this.get_player(uuid);
         let attackee = this.get_player(attackee_uuid);
         if (attacker && attackee) {
@@ -134,7 +140,7 @@ class MultiPlayerSocket {
         }
     }
 
-    send_blink(tx, ty) {
+    send_blink(tx, ty) {    // 闪现
         let outer = this;
         this.ws.send(JSON.stringify({
             'event': "blink",
@@ -144,7 +150,7 @@ class MultiPlayerSocket {
         }));
     }
 
-    receive_blink(uuid, tx, ty) {
+    receive_blink(uuid, tx, ty) {   // 接收闪现
         let player = this.get_player(uuid);
         if (player) {
             player.blink(tx, ty);

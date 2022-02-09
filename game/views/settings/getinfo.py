@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from game.models.player.player import Player
 
-def getinfo_acapp(request):
+def getinfo_acapp(request): # 从acapp上登录
     player = Player.objects.all()[0]
     return JsonResponse({
         'result': "success",
@@ -11,7 +11,7 @@ def getinfo_acapp(request):
 
 
 
-def getinfo_web(request):
+def getinfo_web(request):   # 从web上登录
     user = request.user
     if not user.is_authenticated:
         return JsonResponse({
@@ -29,8 +29,7 @@ def getinfo_web(request):
 
 def getinfo(request):
     platform = request.GET.get('platform')
-
     if platform == "ACAPP":
         return getinfo_acapp(request)
-    else:
+    elif platform == "WEB":
         return getinfo_web(request)

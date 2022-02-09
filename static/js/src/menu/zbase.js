@@ -44,15 +44,15 @@ class AcGameMenu {
          * 在function中调用this会直接使用function的this
          * 因此用outer保存外部的this，方便在function中调用
          */
-        this.$single_mode.click(function() {
+        this.$single_mode.click(function() {    // 单机模式
             outer.hide();
             outer.root.playground.show("single mode");
         });
-        this.$multi_mode.click(function() {
+        this.$multi_mode.click(function() {     // 联网模式
             outer.hide();
             outer.root.playground.show("multi mode");
         });
-        this.$settings.click(function() {
+        this.$settings.click(function() {       // 退出
             outer.root.settings.logout_on_remote();
         });
     }

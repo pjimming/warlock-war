@@ -82,7 +82,7 @@ class FireBall extends AcGameObject {   // skill:fireball 火球 可击退，造
         this.ctx.fill();
     }
 
-    on_destroy() {
+    on_destroy() {  // 销毁火球前，将player里面存储的fireballs对应的火球删除
         let fireballs = this.player.fireballs;
         for (let i = 0; i < fireballs.length; i++) {
             if (fireballs[i] === this) {

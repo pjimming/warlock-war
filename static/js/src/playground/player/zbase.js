@@ -25,12 +25,12 @@ class Player extends AcGameObject { // 游戏对象
 
         this.eps = 0.01;
 
-        if (this.character !== "robot") {   // 绘制自己头像
+        if (this.character !== "robot") {   // 绘制头像
             this.img = new Image();
             this.img.src = this.photo;
         }
 
-        if (this.character === "me") {
+        if (this.character === "me") {  // 绘制技能图标
             this.fireball_coldtime = 1;
             this.fireball_img = new Image();
             this.fireball_img.src = "https://cdn.acwing.com/media/article/image/2021/12/02/1_9340c86053-fireball.png";
@@ -42,10 +42,10 @@ class Player extends AcGameObject { // 游戏对象
     }
 
     start() {   // 开始
-        this.playground.player_count += 1;
-        this.playground.notice_board.write("已就绪：" + this.playground.player_count + "人");
+        this.playground.player_count += 1;  // 每进入一名玩家，人数加一
+        this.playground.notice_board.write("已就绪：" + this.playground.player_count + "人");   // 更改notice_board内容
 
-        if (this.playground.player_count >= 2) {
+        if (this.playground.player_count >= 2) {    // 房间内人数≥2，开始游戏
             this.playground.state = "fighting";
             this.playground.notice_board.write("开始战斗！！！");
         }
@@ -65,7 +65,7 @@ class Player extends AcGameObject { // 游戏对象
             return false;
         });
         this.playground.game_map.$canvas.mousedown(function(e) {    // 对鼠标操作做出回应
-            if (outer.playground.state !== "fighting") {
+            if (outer.playground.state !== "fighting") {    // 非战斗状态不响应鼠标操作
                 return false;
             }
 
@@ -75,31 +75,31 @@ class Player extends AcGameObject { // 游戏对象
                 let ty = (e.clientY - rect.top) / outer.playground.scale;
                 outer.move_to(tx, ty);
 
-                if (outer.playground.mode === "multi mode") {
+                if (outer.playground.mode === "multi mode") {   // 多人模式发送给服务器
                     outer.playground.mps.send_move_to(tx, ty);
                 }
             } else if (e.which === 1) { // 鼠标左键
                 let tx = (e.clientX - rect.left) / outer.playground.scale;
                 let ty = (e.clientY - rect.top) / outer.playground.scale;
 
-                if (outer.cur_skill === "fireball") {
-                    if (outer.fireball_coldtime > outer.eps) {
+                if (outer.cur_skill === "fireball") {   // 火球
+                    if (outer.fireball_coldtime > outer.eps) {  // 冷却时间内不响应
                         return false;
                     }
 
                     let fireball = outer.shoot_fireball(tx, ty);
 
-                    if (outer.playground.mode === "multi mode") {
+                    if (outer.playground.mode === "multi mode") {   // 多人
                         outer.playground.mps.send_shoot_fireball(tx, ty, fireball.uuid);
                     }
-                } else if (outer.cur_skill === "blink") {
-                    if (outer.blink_coldtime > outer.eps) {
+                } else if (outer.cur_skill === "blink") {   // 闪现
+                    if (outer.blink_coldtime > outer.eps) { // 冷却时间不响应
                         return false;
                     }
 
                     outer.blink(tx, ty);
 
-                    if (outer.playground.mode === "multi mode") {
+                    if (outer.playground.mode === "multi mode") {   // 多人
                         outer.playground.mps.send_blink(tx, ty);
                     }
                 }
@@ -120,7 +120,7 @@ class Player extends AcGameObject { // 游戏对象
 
                 outer.cur_skill = "fireball";
                 return false;
-            } else if (e.which === 70) {
+            } else if (e.which === 70) {    // key-f
                 if (outer.blink_coldtime > outer.eps) {
                     return true;
                 }
@@ -131,7 +131,7 @@ class Player extends AcGameObject { // 游戏对象
         });
     }
 
-    blink(tx, ty) {
+    blink(tx, ty) { // 闪现
         let dist = this.get_dist(this.x, this.y, tx, ty);
         dist = Math.min(dist, 0.8);
         let angle = Math.atan2(ty - this.y, tx - this.x);
@@ -160,7 +160,7 @@ class Player extends AcGameObject { // 游戏对象
         return fireball;
     }
 
-    destroy_fireball(uuid) {
+    destroy_fireball(uuid) {    // 销毁火球
         for (let i = 0; i < this.fireballs.length; i++) {
             let fireball = this.fireballs[i];
             if (fireball.uuid === uuid) {
@@ -196,7 +196,7 @@ class Player extends AcGameObject { // 游戏对象
         this.speed *= 1.1;
     }
 
-    receive_attack(x, y, angle, damage, ball_uuid, attacker) {
+    receive_attack(x, y, angle, damage, ball_uuid, attacker) {  // 接收被攻击的信息
         attacker.destroy_fireball(ball_uuid);
         this.x = x;
         this.y = y;
@@ -227,7 +227,7 @@ class Player extends AcGameObject { // 游戏对象
         this.render();
     }
 
-    update_coldtime() {
+    update_coldtime() { // 更新冷却时间
         this.fireball_coldtime -= this.timedelta / 1000;
         this.fireball_coldtime = Math.max(this.fireball_coldtime, 0);
 
@@ -235,7 +235,7 @@ class Player extends AcGameObject { // 游戏对象
         this.blink_coldtime = Math.max(this.blink_coldtime, 0);
     }
 
-    update_move() {
+    update_move() { // 更新移动
         if (this.character === "robot" && this.spent_time > 4 && Math.random() < 1 / 180.0) {  // ai对随机对象进行射击
             let player = this.playground.players[Math.floor(Math.random() * this.playground.players.length)];
             if (this !== player) {
@@ -292,7 +292,7 @@ class Player extends AcGameObject { // 游戏对象
         }
     }
 
-    render_skill_coldtime() {
+    render_skill_coldtime() {   // 绘制冷却时间图像
         let scale = this.playground.scale;
         let x = 1.5, y = 0.9, r = 0.04;
 
@@ -304,7 +304,7 @@ class Player extends AcGameObject { // 游戏对象
         this.ctx.drawImage(this.fireball_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
         this.ctx.restore();
 
-        if (this.fireball_coldtime > 0) {
+        if (this.fireball_coldtime > 0) {   // 火球
             this.ctx.beginPath();
             this.ctx.moveTo(x * scale, y * scale);
             this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.fireball_coldtime / 1) - Math.PI / 2, true);
@@ -322,7 +322,7 @@ class Player extends AcGameObject { // 游戏对象
         this.ctx.drawImage(this.blink_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
         this.ctx.restore();
 
-        if (this.blink_coldtime > 0) {
+        if (this.blink_coldtime > 0) {  // 闪现
             this.ctx.beginPath();
             this.ctx.moveTo(x * scale, y * scale);
             this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.blink_coldtime / 3) - Math.PI / 2, true);

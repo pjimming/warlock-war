@@ -10,7 +10,7 @@ class NoticeBoard extends AcGameObject {
     start() {
     }
 
-    write(text) {
+    write(text) {   // 更改notice_board的内容
         this.text = text;
     }
 
@@ -18,7 +18,7 @@ class NoticeBoard extends AcGameObject {
         this.render();
     }
 
-    render() {
+    render() {  // 渲染
         this.ctx.font = "20px serif";
         this.ctx.fillStyle = "white";
         this.ctx.textAlign = "center";

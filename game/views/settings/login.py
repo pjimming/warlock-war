@@ -5,8 +5,8 @@ def signin(request):
     data = request.GET
     username = data.get('username')
     password = data.get('password')
-    user = authenticate(username=username, password=password)
-    if not user:
+    user = authenticate(username=username, password=password)   # 查找用户
+    if not user:    # 用户不存在
         return JsonResponse({
             'result': "用户名或密码不正确"
         })

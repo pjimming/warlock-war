@@ -94,9 +94,9 @@ class Settings {
     }
 
     start() {
-        if (this.platform === "ACAPP") {
+        if (this.platform === "ACAPP") {    // 从acapp上登录
             this.getinfo_acapp();
-        } else {
+        } else {    // web端登录
             this.getinfo_web();
             this.add_listening_events();
         }
@@ -115,7 +115,7 @@ class Settings {
             outer.register();
         });
 
-        this.$login_submit.click(function() {
+        this.$login_submit.click(function() {   // 向服务器发送登录信息
             outer.login_on_remote();
         });
     }
@@ -127,7 +127,7 @@ class Settings {
             outer.login();
         });
 
-        this.$register_submit.click(function() {
+        this.$register_submit.click(function() {    // 向服务器发送注册信息
             outer.register_on_remote();
         });
     }
@@ -224,7 +224,7 @@ class Settings {
     }
 
 
-    acapp_login(appid, redirect_uri, scope, state) {
+    acapp_login(appid, redirect_uri, scope, state) {    // 从acapp上登录
         let outer = this;
 
         this.root.acwingos.api.oauth2.authorize(appid, redirect_uri, scope, state, function(resp) {
@@ -237,7 +237,7 @@ class Settings {
         });
     }
 
-    getinfo_acapp() {
+    getinfo_acapp() {   // 从acapp上获取用户信息
         let outer = this;
 
         $.ajax({
@@ -255,7 +255,6 @@ class Settings {
 
     getinfo_web() { // web端获取登录信息
         let outer = this;
-
         $.ajax({    // 向后端询问信息
             url: "https://app1356.acapp.acwing.com.cn/settings/getinfo/",
             type: "GET",
