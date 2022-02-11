@@ -145,12 +145,12 @@
 
 .ac-game-menu-helper {  /*菜单界面游玩提示*/
     color: white;
-    width: 32vw;
+    width: 40vw;
     font-size: 2.5vh;
     text-align: center;
     position: relative;
     top: 0;
-    left: 34%;
+    left: 30%;
     background-color: rgba(39,21,28, 0.3);
     border-radius: 20px;
 }
@@ -173,3 +173,40 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.ac-game-chat-field-history {
+    position: absolute;
+    top: 66%;
+    left: 20%;
+
+    transform: translate(-50%, -50%);
+
+    width: 20%;
+    height: 32%;
+
+    color: white;
+    font-size: 2vh;
+
+    padding: 5px;
+    overflow: auto;
+}
+
+.ac-game-chat-field-history::-webkit-scrollbar {
+    width: 0;
+}
+
+.ac-game-chat-field-input {
+    position: absolute;
+    top: 86%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+
+    width: 20%;
+    height: 3vh;
+
+    color: white;
+    font-size: 2vh;
+
+    background-color: rgba(222,225,230, 0.2);
+}
+

@@ -66,7 +66,7 @@ class Player extends AcGameObject { // 游戏对象
         });
         this.playground.game_map.$canvas.mousedown(function(e) {    // 对鼠标操作做出回应
             if (outer.playground.state !== "fighting") {    // 非战斗状态不响应鼠标操作
-                return false;
+                return true;
             }
 
             const rect = outer.ctx.canvas.getBoundingClientRect();
@@ -108,7 +108,19 @@ class Player extends AcGameObject { // 游戏对象
             }
         });
 
-        $(window).keydown(function(e) { // 对键盘操作做出回应
+        this.playground.game_map.$canvas.keydown(function(e) { // 对键盘操作做出回应
+            console.log(e.which);
+            if (e.which === 13) {
+                if (outer.playground.mode === "multi mode") {
+                    outer.playground.chat_field.show_input();
+                    return false;
+                }
+            } else if (e.which === 27) {
+                if (outer.playground.mode === "multi mode") {
+                    outer.playground.chat_field.hide_input();
+                }
+            }
+
             if (outer.playground.state !== "fighting") {
                 return true;
             }
