@@ -126,7 +126,7 @@
 .ac-game-menu-field {   /*设置菜单位置*/
     width: 20vw;
     position: relative; /*相对位置*/
-    top: 40%;
+    top: 50%;
     left: 15%;
 }
 
@@ -143,22 +143,115 @@
     cursor: pointer;        /*更改指针状态*/
 }
 
-.ac-game-menu-helper {  /*菜单界面游玩提示*/
-    color: white;
-    width: 40vw;
-    font-size: 2.5vh;
-    text-align: center;
-    position: relative;
-    top: 0;
-    left: 30%;
-    background-color: rgba(39,21,28, 0.3);
-    border-radius: 20px;
-}
-
 .ac-game-menu-field-item:hover {
     transform: scale(1.2);  /*按钮放大*/
     transition: 100ms;
 }
+
+.ac-game-helper {  /*菜单界面游玩提示*/
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/image/menu/background4.gif");
+    background-size: 100% 100%;
+    user-select: none;
+}
+
+.ac-game-helper-text {
+    background-color: rgba(39,21,28, 0.5);
+    border-radius: 20px;
+    position: absolute;
+    z-index: 100;
+    width: 1000px;
+    height: 400px;
+    top: calc(50% - 250px);
+    left: calc(50% - 500px);
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
+.ac-game-helper-back {
+    position: absolute;
+    top: calc(50% + 200px);
+    left: calc(45%);
+    color: white;
+    height: 45px;
+    width: 10vw;
+    font-size: 30px;
+    font-style: italic;     /*斜体*/
+    text-align: center;
+    background-color: rgba(39,21,28, 0.6);  /*颜色RGB， 透明度*/
+    border-radius: 20px;    /*矩形圆角*/
+    letter-spacing: 0.5vw;  /*字符间空隙*/
+    cursor: pointer;        /*更改指针状态*/
+}
+
+.ac-game-helper-back:hover {
+    transform: scale(1.2);  /*按钮放大*/
+    transition: 100ms;
+}
+
+.ac-game-changelog {
+    position: absolute;
+    z-index: 100;
+    width: 600px;
+    height: 500px;
+    top: calc(50% - 250px);
+    left: calc(50% - 300px);
+    background-color: white;
+    border-radius: 10px;
+    display: block;
+    user-select: none;
+}
+
+.ac-game-changelog-logo {
+    position: relative;
+    top: 15px;
+    left: calc(50% - 135px);
+    width: 270px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url("/static/image/menu/logo.png");
+}
+
+.ac-game-changelog-author {
+    text-align: center;
+    font-size: 40px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.ac-game-changelog-close {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    background: rgba(39,21,28, 0.2);
+    color: #fff;
+    right: 5px;
+    top: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.ac-game-changelog-close:hover {
+    background-color: red;
+}
+
+.ac-game-changelog-text {
+    height: calc(100% - 150px);
+    padding: 0 20px 50px 20px;
+    border-top: solid 1px var(--b-alpha-5);
+    color: var(--b-alpha-80);
+    background-color: var(--bg-w-pure);
+    font-size: 15px;
+    line-height: 20px;
+    text-align: left;
+    overflow-y: auto;
+}
+
 
 .ac-game-playground {   /*游戏背景，底色为黑*/
     width: 100%;

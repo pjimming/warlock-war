@@ -22,6 +22,9 @@ class ChatField {
 
     add_listening_event() {
         let outer = this;
+        this.$history.on("contextmenu", function() {
+            return false;
+        });
 
         this.$input.keydown(function(e) {
             if (e.which === 27) {   // key-ESC

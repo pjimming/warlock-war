@@ -16,7 +16,7 @@ class MultiPlayer(AsyncWebsocketConsumer):  # 多人模式后端代码
     async def create_player(self, data):    # 创建用户
         self.room_name = None
 
-        for i in range(50): # 50个房间
+        for i in range(100): # 100个房间
             name = "room-%d" % (i)
             if not cache.has_key(name) or len(cache.get(name)) < settings.ROOM_CAPACITY:
                 self.room_name = name
@@ -25,7 +25,7 @@ class MultiPlayer(AsyncWebsocketConsumer):  # 多人模式后端代码
         if not self.room_name:  # 房间满后不给进入
             return
 
-        if not cache.has_key(self.room_name):   # 若房间满5人，创建新房间
+        if not cache.has_key(self.room_name):   # 若房间满2人，创建新房间
             cache.set(self.room_name, [], 3600)
 
         for player in cache.get(self.room_name):    # 获取房间内其他用户信息

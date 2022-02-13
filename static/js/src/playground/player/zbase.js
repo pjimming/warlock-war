@@ -109,7 +109,6 @@ class Player extends AcGameObject { // 游戏对象
         });
 
         this.playground.game_map.$canvas.keydown(function(e) { // 对键盘操作做出回应
-            console.log(e.which);
             if (e.which === 13) {
                 if (outer.playground.mode === "multi mode") {
                     outer.playground.chat_field.show_input();
@@ -231,12 +230,22 @@ class Player extends AcGameObject { // 游戏对象
     update() {  // 每秒更新六十次画布
         this.spent_time += this.timedelta / 1000;
 
+        this.update_win();
+
         if (this.playground.state === "fighting" && this.character === "me") {
             this.update_coldtime();
         }
 
         this.update_move();
         this.render();
+    }
+
+    update_win() {
+        if (this.playground.player_count === 1 && this.playground.state === "fighting" && this.character === "me") {
+            this.playground.state = "over";
+            this.playground.notice_board.write("恭喜，您赢了！！！");
+            this.playground.finall_board.win();
+        }
     }
 
     update_coldtime() { // 更新冷却时间
@@ -347,9 +356,10 @@ class Player extends AcGameObject { // 游戏对象
     }
 
     on_destroy() {  // 销毁对象
-        if (this.character === "me") {
+        if (this.character === "me" && this.playground.state === "fighting") {
             this.playground.state = "over";
             this.playground.notice_board.write("您已阵亡，游戏结束。");
+            this.playground.finall_board.lose();
         }
 
         for (let i = 0; i < this.playground.players.length; i++) {
@@ -358,11 +368,6 @@ class Player extends AcGameObject { // 游戏对象
                 this.playground.player_count -= 1;
                 break;
             }
-        }
-
-        if (this.playground.player_count === 1 && this.playground.state === "fighting") {
-            this.playground.state = "over";
-            this.playground.notice_board.write("恭喜，您赢了！！！");
         }
     }
 }
