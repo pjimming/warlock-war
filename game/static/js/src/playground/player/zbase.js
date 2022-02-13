@@ -33,11 +33,11 @@ class Player extends AcGameObject { // 游戏对象
         if (this.character === "me") {  // 绘制技能图标
             this.fireball_coldtime = 1;
             this.fireball_img = new Image();
-            this.fireball_img.src = "https://cdn.acwing.com/media/article/image/2021/12/02/1_9340c86053-fireball.png";
+            this.fireball_img.src = "https://cdn.acwing.com/media/article/image/2022/02/13/106788_b4ad44c18c-fireball.png";
 
             this.blink_coldtime = 3;
             this.blink_img = new Image();
-            this.blink_img.src = "https://cdn.acwing.com/media/article/image/2021/12/02/1_daccabdc53-blink.png";
+            this.blink_img.src = "https://cdn.acwing.com/media/article/image/2022/02/13/106788_b212e4278c-blink-f.png";
         }
     }
 
@@ -73,6 +73,19 @@ class Player extends AcGameObject { // 游戏对象
             if (e.which === 3) {    // 鼠标右键
                 let tx = (e.clientX - rect.left) / outer.playground.scale;
                 let ty = (e.clientY - rect.top) / outer.playground.scale;
+                for (let i = 0; i < 4; i++) {
+                    let x = tx;
+                    let y = ty;
+                    let radius = 0.0025;
+                    let angle = Math.PI * 2 * (i / 4 + 0.125);
+                    let vx = Math.cos(angle);
+                    let vy = Math.sin(angle);
+                    let color = "white";
+                    let speed = 0.3;
+                    let move_length = 0.02;
+                    new Particle(outer.playground, x, y, radius, vx, vy, color, speed, move_length);
+                }
+
                 outer.move_to(tx, ty);
 
                 if (outer.playground.mode === "multi mode") {   // 多人模式发送给服务器

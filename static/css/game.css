@@ -7,8 +7,8 @@
 }
 
 .ac-game-settings-login {   /*加载登录注册页面的小菜单*/
-    height: 34vh;
-    width: 20vw;
+    height: 450px;
+    width: 390px;
     position: relative;
     top: 50%;
     left: 50%;
@@ -19,30 +19,25 @@
 
 .ac-game-settings-title {   /*加载排头*/
     color: white;
-    font-size: 3vh;
+    font-size: 42px;
     text-align: center;
-    padding-top: 2vh;
-    margin-bottom: 2vh;
+    padding-top: 27px;
+    margin-bottom: 27px;
 }
 
 .ac-game-settings-username {    /*用户名文本框*/
     display: block;
-    height: 7vh;
+    height: 93px;
 }
 
 .ac-game-settings-password {    /*密码文本框*/
     display: block;
-    height: 7vh;
+    height: 93px;
 }
 
 .ac-game-settings-submit {  /*登录注册按钮*/
     display: block;
-    height: 7vh;
-}
-
-.ac-game-settings-other-login { /*第三方登录*/
-    display: block;
-    height: 7vh;
+    height: 93px;
 }
 
 .ac-game-settings-item {    /*菜单内的小对象*/
@@ -52,7 +47,7 @@
 
 .ac-game-settings-item > input {    /*文本框*/
     width: 90%;
-    line-height: 3vh;
+    line-height: 42px;
     position: relative;
     top: 50%;
     left: 50%;
@@ -62,7 +57,7 @@
 .ac-game-settings-item > button {   /*按钮*/
     color: white;
     width: 90%;
-    line-height: 3vh;
+    line-height: 42px;
     position: relative;
     top: 50%;
     left: 50%;
@@ -73,40 +68,24 @@
 
 .ac-game-settings-option {  /*login or register*/
     color: white;
-    font-size: 2vh;
+    font-size: 27px;
     display: inline;
     float: right;
-    padding-right: 1vw;
+    padding-right: 15px;
     cursor: pointer;
 }
 
 .ac-game-settings-error-message {   /*错误登录信息*/
     color: red;
-    font-size: 0.8vh;
+    font-size: 12px;
     display: inline;
     float: left;
-    padding-left: 1vw;
-}
-
-.ac-game-settings-other-login > div {   /*txt*/
-    color: white;
-    font-size: 2vh;
-    display: block;
-    text-align: center;
-}
-
-.ac-game-settings-other-login > img {   /*logo*/
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    display: block;
+    padding-left: 15px;
 }
 
 .ac-game-settings-register {    /*注册界面小菜单*/
-    height: 41vh;
-    width: 20vw;
+    height: 542px;
+    width: 390px;
     position: relative;
     top: 50%;
     left: 50%;
@@ -124,7 +103,7 @@
 }
 
 .ac-game-menu-field {   /*设置菜单位置*/
-    width: 20vw;
+    width: 200px;
     position: relative; /*相对位置*/
     top: 50%;
     left: 15%;
@@ -132,9 +111,9 @@
 
 .ac-game-menu-field-item {  /*菜单按钮详细参数*/
     color: white;
-    height: 6vh;
-    width: 18vw;
-    font-size: 4vh;
+    height: 50px;
+    width: 230px;
+    font-size: 35px;
     font-style: italic;     /*斜体*/
     text-align: center;
     background-color: rgba(39,21,28, 0.6);  /*颜色RGB， 透明度*/
@@ -199,7 +178,7 @@
     top: calc(50% - 250px);
     left: calc(50% - 300px);
     background-color: white;
-    border-radius: 10px;
+    border-radius: 18px;
     display: block;
     user-select: none;
 }

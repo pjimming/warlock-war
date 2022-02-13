@@ -4,7 +4,7 @@ class AcGameMenu {
         this.$menu = $(`
 <div class="ac-game-menu">
     <div class="ac-game-menu-field">
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-helper">
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-helper" title="相关操作说明">
             游戏说明
         </div>
         <br>
