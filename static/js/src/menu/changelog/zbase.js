@@ -23,7 +23,7 @@ class Changelog {
         <br>
         <br>
         2022.2.13<br>
-        &emsp;Warlock War 正式上线
+        &emsp;Warlock War 1.0 正式上线
     </div>
 </div>
 `);

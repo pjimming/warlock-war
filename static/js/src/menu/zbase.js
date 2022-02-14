@@ -37,6 +37,7 @@ class AcGameMenu {
 
         this.game_helper = new GameHelper(this);
         this.changelog = new Changelog(this);
+        this.message_board = new MessageBoard(this);
 
         this.start();
     }

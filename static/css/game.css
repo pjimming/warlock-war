@@ -104,9 +104,9 @@
 
 .ac-game-menu-field {   /*设置菜单位置*/
     width: 200px;
-    position: relative; /*相对位置*/
+    position: absolute; /*绝对位置*/
     top: 50%;
-    left: 15%;
+    left: calc(180px);
 }
 
 .ac-game-menu-field-item {  /*菜单按钮详细参数*/
@@ -229,8 +229,47 @@
     line-height: 20px;
     text-align: left;
     overflow-y: auto;
+    font: 15px/1.5 'Microsoft YaHei',arial,tahoma,\5b8b\4f53,sans-serif;
+    font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
+.ac-game-changelog-text::-webkit-scrollbar {
+    width: 0;
+}
+
+.message-board-history {
+    position: absolute;
+    top: 46%;
+    right:65px;
+
+    border-top: solid 1px var(--b-alpha-5);
+    width: 320px;
+    height: 300px;
+
+    color: black;
+    font-size: 18px;
+    background-color: rgba(255,255,255, 0.8);
+
+    padding: 5px;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+.message-board-history::-webkit-scrollbar {
+    width: 0;
+}
+
+.message-board-input {
+    position: absolute;
+    top: calc(46% + 340px);
+    right: 65px;
+    width: 330px;
+    height: 27px;
+    color: black;
+    font-size: 18px;
+    background-color: rgba(255,255,255, 0.8);
+    border-radius: 5px;
+}
 
 .ac-game-playground {   /*游戏背景，底色为黑*/
     width: 100%;
