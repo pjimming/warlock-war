@@ -88,6 +88,10 @@ class AcGamePlayground {
 
     hide() {    //关闭playground界面
         while (this.players && this.players.length > 0) {
+            let player = this.players[0];
+            while (player.fireballs && player.fireballs.length > 0) {
+                player.fireballs[0].destroy();
+            }
             this.players[0].destroy();
         }
 
