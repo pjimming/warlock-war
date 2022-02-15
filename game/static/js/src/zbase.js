@@ -7,7 +7,7 @@ export class AcGame {
         this.acwingos = acwingos;
 
         this.settings = new Settings(this); // 注册登录界面
-        this.menu = new AcGameMenu(this);   // 菜单界面
+        // this.menu = new AcGameMenu(this);   // 菜单界面
         this.playground = new AcGamePlayground(this);   // 游戏界面
 
         this.start();

@@ -141,17 +141,19 @@
     position: absolute;
     z-index: 100;
     width: 1000px;
-    height: 400px;
+    height: 420px;
+    padding: 10px;
     top: calc(50% - 250px);
     left: calc(50% - 500px);
     color: white;
     font-size: 30px;
+    font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
     text-align: center;
 }
 
 .ac-game-helper-back {
     position: absolute;
-    top: calc(50% + 200px);
+    top: calc(50% + 220px);
     left: calc(45%);
     color: white;
     height: 45px;
@@ -237,10 +239,22 @@
     width: 0;
 }
 
+.message-board-title {
+    position: absolute;
+    top: calc(48% - 60px);
+    right: 65px;
+    width: 320px;
+    height: 50px;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    font-style: italic;
+}
+
 .message-board-history {
     position: absolute;
-    top: 46%;
-    right:65px;
+    top: 48%;
+    right: 65px;
 
     width: 320px;
     height: 300px;
@@ -260,7 +274,7 @@
 
 .message-board-input {
     position: absolute;
-    top: calc(46% + 340px);
+    top: calc(48% + 330px);
     right: 65px;
     width: 330px;
     height: 27px;

@@ -1,13 +1,16 @@
-class MessageBoard {
+class WarlockChat {
     constructor(menu) {
         this.menu = menu;
 
+        this.$title = $(`<div class="message-board-title">Warlock Chat</div>`);
         this.$history = $(`<div class="message-board-history"></div>`);
         this.$input = $(`<input type="text" class="message-board-input" placeholder="留下你的足迹">`);
 
+        this.$title.show();
         this.$history.show();
         this.$input.show();
 
+        this.menu.$menu.append(this.$title);
         this.menu.$menu.append(this.$history);
         this.menu.$menu.append(this.$input);
 
@@ -49,7 +52,7 @@ class MessageBoard {
                     }
                     let time = new Date().format("yyyy-MM-dd hh:mm:ss");
                     outer.add_message(username, time, text);
-                    //outer.menu.mms.send_message(username, time, text);
+                    outer.menu.wcs.send_message(username, time, text);
                 }
 
                 return false;

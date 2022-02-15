@@ -13,6 +13,11 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.16<br>
+        &emsp;重磅：Warlock Chat 正式上线<br>
+        &emsp;优化：游戏说明页面视觉优化
+        <br>
+        <br>
         2022.2.15<br>
         &emsp;元宵节快乐！<br>
         &emsp;优化：更换背景样式，使背景更贴合游戏主题氛围<br>

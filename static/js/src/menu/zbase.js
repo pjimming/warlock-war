@@ -27,7 +27,7 @@ class AcGameMenu {
 </div>
 `);
 
-        this.$menu.hide();
+        //this.$menu.hide();
         this.root.$ac_game.append(this.$menu);
         this.$helper = this.$menu.find('.ac-game-menu-field-item-helper');
         this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');
@@ -37,7 +37,13 @@ class AcGameMenu {
 
         this.game_helper = new GameHelper(this);
         this.changelog = new Changelog(this);
-        this.message_board = new MessageBoard(this);
+        this.warlock_chat = new WarlockChat(this);
+        this.wcs = new WarlockChatSocket(this);
+
+        let outer = this;
+        this.wcs.ws.onopen = function() {
+            outer.wcs.send_init(outer.root.settings.username);
+        }
 
         this.start();
     }

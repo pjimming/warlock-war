@@ -232,6 +232,7 @@ class Settings {
                 outer.username = resp.username;
                 outer.photo = resp.photo;
                 outer.hide();
+                outer.root.menu = new AcGameMenu(outer.root);
                 outer.root.menu.show();
                 outer.root.menu.changelog.show();
             }
@@ -267,6 +268,7 @@ class Settings {
                     outer.username = resp.username;
                     outer.photo = resp.photo;
                     outer.hide();
+                    outer.root.menu = new AcGameMenu(outer.root);
                     outer.root.menu.show();
                     outer.root.menu.changelog.show();
                 } else {    // 未登录，跳转至登录界面
