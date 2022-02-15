@@ -54,20 +54,24 @@ class AcGameMenu {
          */
         this.$helper.click(function() {
             outer.hide();
+            outer.changelog.hide();
             outer.game_helper.show();
         });
         this.$single_mode.click(function() {    // 单机模式
             outer.hide();
+            outer.changelog.hide();
             outer.root.playground.show("single mode");
         });
         this.$multi_mode.click(function() {     // 联网模式
             outer.hide();
+            outer.changelog.hide();
             outer.root.playground.show("multi mode");
         });
         this.$changelog.click(function() {
             outer.changelog.show();
         });
         this.$settings.click(function() {       // 退出
+            outer.changelog.hide();
             outer.root.settings.logout_on_remote();
         });
     }

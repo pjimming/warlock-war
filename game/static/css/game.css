@@ -1,7 +1,7 @@
 .ac-game-settings { /*加载登录注册页面的背景*/
     width: 100%;
     height: 100%;
-    background-image: url("/static/image/menu/background5.gif");
+    background-image: url("/static/image/settings/background7.gif");
     background-size: 100% 100%;
     user-select: none;
 }
@@ -97,7 +97,7 @@
 .ac-game-menu { /*加载背景图片*/
     width: 100%;
     height: 100%;
-    background-image: url("/static/image/menu/background1.gif");
+    background-image: url("/static/image/menu/background6.gif");
     background-size: 100% 100%;
     user-select: none;  /*不可选中字符串*/
 }
@@ -130,7 +130,7 @@
 .ac-game-helper {  /*菜单界面游玩提示*/
     width: 100%;
     height: 100%;
-    background-image: url("/static/image/menu/background4.gif");
+    background-image: url("/static/image/menu/background8.gif");
     background-size: 100% 100%;
     user-select: none;
 }

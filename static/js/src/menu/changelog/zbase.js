@@ -13,6 +13,12 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.15<br>
+        &emsp;元宵节快乐！<br>
+        &emsp;优化：更换背景样式，使背景更贴合游戏主题氛围<br>
+        &emsp;修复：在菜单模式中点击其他按钮后更新日志不会自动关闭的bug
+        <br>
+        <br>
         2022.2.14<br>
         &emsp;情人节快乐！<br>
         &emsp;优化：UI适配不同类型窗口<br>
