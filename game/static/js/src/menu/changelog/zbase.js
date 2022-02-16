@@ -15,7 +15,8 @@ class Changelog {
     <div class="ac-game-changelog-text">
         2022.2.16<br>
         &emsp;重磅：Warlock Chat 正式上线<br>
-        &emsp;优化：游戏说明页面视觉优化
+        &emsp;优化：游戏说明页面视觉优化<br>
+        &emsp;优化：鼠标指针皮肤全面更新
         <br>
         <br>
         2022.2.15<br>
