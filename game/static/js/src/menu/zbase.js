@@ -35,6 +35,7 @@ class AcGameMenu {
         this.$changelog = this.$menu.find('.ac-game-menu-field-item-changelog');
         this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');
 
+        this.onlinedays = new OnlineDays(this);
         this.game_helper = new GameHelper(this);
         this.changelog = new Changelog(this);
         this.warlock_chat = new WarlockChat(this);
@@ -83,10 +84,12 @@ class AcGameMenu {
     }
 
     show() {    //显示menu界面
+        this.onlinedays.show();
         this.$menu.show();
     }
 
     hide() {    //关闭menu界面
+        this.onlinedays.hide();
         this.$menu.hide();
     }
 }

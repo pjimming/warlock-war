@@ -129,11 +129,10 @@ body {
     background-color: rgba(39,21,28, 0.6);  /*颜色RGB， 透明度*/
     border-radius: 20px;    /*矩形圆角*/
     letter-spacing: 0.5vw;  /*字符间空隙*/
-    cursor: pointer;        /*更改指针状态*/
+    cursor: url("/static/image/menu/hand.png"), auto;
 }
 
 .ac-game-menu-field-item:hover {
-    cursor: url("/static/image/menu/hand.png"), auto;
     transform: scale(1.2);  /*按钮放大*/
     transition: 100ms;
 }
@@ -295,6 +294,17 @@ body {
     border-radius: 5px;
     padding: 0px;
     cursor: url("/static/image/menu/text.png"), auto;
+}
+
+.onlinedays {
+    position: absolute;
+    top: 10px;
+    left: calc(50% - 200px);
+    width: 400px;
+    height: 30px;
+    color: white;
+    font-size: 25px;
+    text-align: center;
 }
 
 .ac-game-playground {   /*游戏背景，底色为黑*/
