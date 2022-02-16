@@ -22,14 +22,14 @@ class FireBall extends AcGameObject {   // skill:fireball 火球 可击退，造
 
     update() {
         if (this.move_length < this.eps) {  // 有移动距离的限制
-            for (let i = 0; i < 20 + Math.random() * 10; i++) {
+            for (let i = 0; i < 20 + Math.random() * 10; i++) { // 烟花效果
                 let x = this.x;
                 let y = this.y;
                 let radius = 0.005;
                 let angle = Math.PI * 2 * Math.random();
                 let vx = Math.cos(angle);
                 let vy = Math.sin(angle);
-                let color = "orange";
+                let color = this.color;
                 let speed = 1;
                 let move_length = 0.2;
                 new Particle(this.playground, x, y, radius, vx, vy, color, speed, move_length);

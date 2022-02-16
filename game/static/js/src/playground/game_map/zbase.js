@@ -7,6 +7,13 @@ class GameMap extends AcGameObject {
         this.ctx.canvas.width = this.playground.width;
         this.ctx.canvas.height = this.playground.height;
         this.playground.$playground.append(this.$canvas);   // 把地图加入到acanvas里面
+
+        this.background_img = new Image();
+        if (this.playground.mode === "single mode") {
+            this.background_img.src = "https://cdn.acwing.com/media/article/image/2022/02/16/106788_4d7828ed8f-single.jpg";
+        } else if (this.playground.mode === "multi mode") {
+            this.background_img.src = "https://cdn.acwing.com/media/article/image/2022/02/16/106788_7f79857a8f-multi.jpg";
+        }
     }
 
     start() {
@@ -16,8 +23,9 @@ class GameMap extends AcGameObject {
     resize() {  // 更改界面大小
         this.ctx.canvas.width = this.playground.width;
         this.ctx.canvas.height = this.playground.height;
-        this.ctx.fillStyle = "rgba(0,0,0, 1)";
-        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.drawImage(this.background_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
 
     update() {
@@ -25,7 +33,10 @@ class GameMap extends AcGameObject {
     }
 
     render() {  // 画图
-        this.ctx.fillStyle = "rgba(0,0,0, 0.2)";
-        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.globalAlpha = 0.28;
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.drawImage(this.background_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.globalAlpha = 1;
     }
 }

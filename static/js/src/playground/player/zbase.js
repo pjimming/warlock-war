@@ -174,6 +174,9 @@ class Player extends AcGameObject { // 游戏对象
         let vx = Math.cos(angle);
         let vy = Math.sin(angle);
         let color = "orange";
+        if (this.playground.mode === "multi mode") {
+            color = "red";
+        }
         let speed = 0.6;
         let move_length = 1;
         let fireball = new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, 0.01);

@@ -54,12 +54,12 @@ class AcGamePlayground {
     show(mode) {    //打开playground界面
         let outer = this;
         this.$playground.show();
+        this.mode = mode;   // 游戏模式 single or multi
 
         this.width = this.$playground.width();
         this.height = this.$playground.height();
         this.game_map = new GameMap(this);  // 生成地图
 
-        this.mode = mode;   // 游戏模式 single or multi
         this.state = "waiting"; // 游戏状态 waiting -> fighting -> over
         this.notice_board = new NoticeBoard(this);  // 生成提示板
         this.finall_board = new FinallBoard(this);  // 最终界面

@@ -17,6 +17,7 @@ class Changelog {
         &emsp;重磅：Warlock Chat 正式上线<br>
         &emsp;优化：游戏说明页面视觉优化<br>
         &emsp;优化：鼠标指针皮肤全面更新<br>
+        &emsp;优化：游戏界面背景优化<br>
         &emsp;新增：Warlock War 上线天数显示
         <br>
         <br>
