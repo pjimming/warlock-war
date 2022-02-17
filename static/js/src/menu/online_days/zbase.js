@@ -14,7 +14,7 @@ class OnlineDays {
     start() {
     }
 
-    calc_days() {
+    calc_days() {   // 计算当天距离2022-2-13的天数
         let date1 = new Date(2022, 1, 13);
         let date2 = new Date();
         date1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());

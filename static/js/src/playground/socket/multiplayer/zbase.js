@@ -159,7 +159,7 @@ class MultiPlayerSocket {   // 多人服务器接口
         }
     }
 
-    send_message(username, text) {
+    send_message(username, text) {  // 发送信息
         let outer = this;
         this.ws.send(JSON.stringify({
             'event': "message",
@@ -169,7 +169,7 @@ class MultiPlayerSocket {   // 多人服务器接口
         }));
     }
 
-    receive_message(uuid, username, text) {
+    receive_message(uuid, username, text) { // 接收信息
         this.playground.chat_field.add_message(username, text);
     }
 }

@@ -16,7 +16,7 @@ class MultiPlayer(AsyncWebsocketConsumer):  # 多人模式后端代码
     async def create_player(self, data):    # 创建用户
         self.room_name = None
 
-        for i in range(100): # 100个房间
+        for i in range(888888): # 888888个房间
             name = "room-%d" % (i)
             if not cache.has_key(name) or len(cache.get(name)) < settings.ROOM_CAPACITY:
                 self.room_name = name
@@ -108,7 +108,7 @@ class MultiPlayer(AsyncWebsocketConsumer):  # 多人模式后端代码
             }
         )
 
-    async def message(self, data):
+    async def message(self, data):  # 局内聊天
         await self.channel_layer.group_send(
             self.room_name,
             {

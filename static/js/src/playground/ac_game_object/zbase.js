@@ -56,14 +56,14 @@ let AC_GAME_ANIMATION = function(timestamp) {
         }
     }
 
-    for (let i = 0; i < AC_GAME_OBJECTS.length; i++) {
+    for (let i = 0; i < AC_GAME_OBJECTS.length; i++) {  // 最后渲染一遍，使图像在页面最上方
         let obj = AC_GAME_OBJECTS[i];
         obj.late_update();
     }
 
     last_timestamp = timestamp;
 
-    requestAnimationFrame(AC_GAME_ANIMATION);
+    requestAnimationFrame(AC_GAME_ANIMATION);   // 递归调用此函数
 }
 
 requestAnimationFrame(AC_GAME_ANIMATION);   //HTML5的API，可以调用1帧的函数

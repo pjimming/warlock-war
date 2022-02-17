@@ -121,19 +121,19 @@ class Player extends AcGameObject { // 游戏对象
             }
         });
 
-        this.playground.game_map.$canvas.keydown(function(e) { // 对键盘操作做出回应
+        this.playground.game_map.$canvas.keydown(function(e) {  // 对键盘操作做出回应
             if (e.which === 13) {
-                if (outer.playground.mode === "multi mode") {
+                if (outer.playground.mode === "multi mode") {   // 打开对话框
                     outer.playground.chat_field.show_input();
                     return false;
                 }
             } else if (e.which === 27) {
-                if (outer.playground.mode === "multi mode") {
+                if (outer.playground.mode === "multi mode") {   // 关闭对话框
                     outer.playground.chat_field.hide_input();
                 }
             }
 
-            if (outer.playground.state !== "fighting") {
+            if (outer.playground.state !== "fighting") {    // 非战斗状态不能移动
                 return true;
             }
 
@@ -256,7 +256,7 @@ class Player extends AcGameObject { // 游戏对象
         this.render();
     }
 
-    update_win() {
+    update_win() {  // 查看当前是否胜利
         if (this.playground.player_count === 1 && this.playground.state === "fighting" && this.character === "me") {
             this.playground.state = "over";
             this.playground.notice_board.write("恭喜，您赢了！！！");
@@ -324,15 +324,16 @@ class Player extends AcGameObject { // 游戏对象
             this.ctx.fill();
         }
 
-        if (this.character === "me" && this.playground.state === "fighting") {
+        if (this.character === "me" && this.playground.state === "fighting") {  // 绘制冷却
             this.render_skill_coldtime();
         }
     }
 
     render_skill_coldtime() {   // 绘制冷却时间图像
         let scale = this.playground.scale;
-        let x = 1.5, y = 0.9, r = 0.04;
 
+        // fireball
+        let x = 1.5, y = 0.9, r = 0.04;
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2, false);
@@ -341,7 +342,7 @@ class Player extends AcGameObject { // 游戏对象
         this.ctx.drawImage(this.fireball_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
         this.ctx.restore();
 
-        if (this.fireball_coldtime > 0) {   // 火球
+        if (this.fireball_coldtime > 0) {   // fireball-coldtime
             this.ctx.beginPath();
             this.ctx.moveTo(x * scale, y * scale);
             this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.fireball_coldtime / 1) - Math.PI / 2, true);
@@ -350,6 +351,7 @@ class Player extends AcGameObject { // 游戏对象
             this.ctx.fill();
         }
 
+        // blink
         x = 1.62, y = 0.9, r = 0.04;
         this.ctx.save();
         this.ctx.beginPath();
@@ -359,7 +361,7 @@ class Player extends AcGameObject { // 游戏对象
         this.ctx.drawImage(this.blink_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
         this.ctx.restore();
 
-        if (this.blink_coldtime > 0) {  // 闪现
+        if (this.blink_coldtime > 0) {  // blink-coldtime
             this.ctx.beginPath();
             this.ctx.moveTo(x * scale, y * scale);
             this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.blink_coldtime / 3) - Math.PI / 2, true);
@@ -372,7 +374,7 @@ class Player extends AcGameObject { // 游戏对象
     }
 
     on_destroy() {  // 销毁对象
-        if (this.character === "me" && this.playground.state === "fighting") {
+        if (this.character === "me" && this.playground.state === "fighting") {  // 检查是否失败
             this.playground.state = "over";
             this.playground.notice_board.write("您已阵亡，游戏结束。");
             this.playground.finall_board.lose();

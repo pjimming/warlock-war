@@ -20,7 +20,7 @@ class AcGameMenu {
             更新日志
         </div>
         <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings" title="退出当前账号">
             退出
         </div>
     </div>
@@ -29,20 +29,22 @@ class AcGameMenu {
 
         //this.$menu.hide();
         this.root.$ac_game.append(this.$menu);
-        this.$helper = this.$menu.find('.ac-game-menu-field-item-helper');
-        this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');
-        this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');
-        this.$changelog = this.$menu.find('.ac-game-menu-field-item-changelog');
-        this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');
 
-        this.onlinedays = new OnlineDays(this);
-        this.game_helper = new GameHelper(this);
-        this.changelog = new Changelog(this);
-        this.warlock_chat = new WarlockChat(this);
-        this.wcs = new WarlockChatSocket(this);
+        // 按钮相关
+        this.$helper = this.$menu.find('.ac-game-menu-field-item-helper');              // 游戏说明
+        this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');    // 单机模式
+        this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');      // 联网模式
+        this.$changelog = this.$menu.find('.ac-game-menu-field-item-changelog');        // 更新日志
+        this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');          // 退出
+
+        this.onlinedays = new OnlineDays(this);     // 创建上线天数相关
+        this.game_helper = new GameHelper(this);    // 创建游戏说明相关
+        this.changelog = new Changelog(this);       // 创建更新日志相关
+        this.warlock_chat = new WarlockChat(this);  // 创建Warlock Chat
+        this.wcs = new WarlockChatSocket(this);     // 创建Warlock Chat Socket
 
         let outer = this;
-        this.wcs.ws.onopen = function() {
+        this.wcs.ws.onopen = function() {   // 发送初始化Warlock Chat的请求
             outer.wcs.send_init(outer.root.settings.username);
         }
 
@@ -59,7 +61,7 @@ class AcGameMenu {
          * 在function中调用this会直接使用function的this
          * 因此用outer保存外部的this，方便在function中调用
          */
-        this.$helper.click(function() {
+        this.$helper.click(function() {         // 游戏说明
             outer.hide();
             outer.changelog.hide();
             outer.game_helper.show();
@@ -74,7 +76,7 @@ class AcGameMenu {
             outer.changelog.hide();
             outer.root.playground.show("multi mode");
         });
-        this.$changelog.click(function() {
+        this.$changelog.click(function() {      // 更新日志
             outer.changelog.show();
         });
         this.$settings.click(function() {       // 退出

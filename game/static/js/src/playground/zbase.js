@@ -10,8 +10,8 @@ class AcGamePlayground {
     }
 
     get_random_color() {    // ai随机颜色
-        let colors = ["blue", "green", "yellow", "red", "pink", "purple", "grey"];
-        return colors[Math.floor(Math.random() * 7)];
+        let colors = ["blue", "green", "yellow", "red", "pink", "purple", "grey", "aqua", "skyblue", "greenyellow", "gold", "peachpuff", "plum", "lightpink", "wheat"];
+        return colors[Math.floor(Math.random() * 15)];
     }
 
     create_uuid() {
@@ -87,30 +87,30 @@ class AcGamePlayground {
     }
 
     hide() {    //关闭playground界面
-        while (this.players && this.players.length > 0) {
+        while (this.players && this.players.length > 0) {   // 删除player
             let player = this.players[0];
-            while (player.fireballs && player.fireballs.length > 0) {
+            while (player.fireballs && player.fireballs.length > 0) {   // 删除fireball
                 player.fireballs[0].destroy();
             }
             this.players[0].destroy();
         }
 
-        if (this.game_map) {
+        if (this.game_map) {    // 删除game_map
             this.game_map.destroy();
             this.game_map = null;
         }
 
-        if (this.notice_board) {
+        if (this.notice_board) {    // 删除notice_board
             this.notice_board.destroy();
             this.notice_board = null;
         }
 
-        if (this.finall_board) {
+        if (this.finall_board) {    // 删除finall_board
             this.finall_board.destroy();
             this.finall_board = null;
         }
 
-        this.$playground.empty();
+        this.$playground.empty();   // 清空HTML元素
 
         this.$playground.hide();
     }

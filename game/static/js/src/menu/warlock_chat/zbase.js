@@ -4,7 +4,7 @@ class WarlockChat {
 
         this.$title = $(`<div class="message-board-title">Warlock Chat</div>`);
         this.$history = $(`<div class="message-board-history"></div>`);
-        this.$input = $(`<input type="text" class="message-board-input" placeholder="留下你的足迹">`);
+        this.$input = $(`<input type="text" class="message-board-input" placeholder="留下你的足迹"></input>`);
 
         this.$title.show();
         this.$history.show();
@@ -51,8 +51,8 @@ class WarlockChat {
                         return fmt;
                     }
                     let time = new Date().format("yyyy-MM-dd hh:mm:ss");
-                    outer.add_message(username, time, text);
-                    outer.menu.wcs.send_message(username, time, text);
+                    outer.add_message(username, time, text);    // 自己界面显示
+                    outer.menu.wcs.send_message(username, time, text);  // 调用wcs，向后端发送信息，广播给其他人
                 }
 
                 return false;
@@ -60,7 +60,7 @@ class WarlockChat {
         });
     }
 
-    add_message(username, time, text) {
+    add_message(username, time, text) { // 添加message
         let message = `[${username}][${time}]<br>${text}`;
         let color = "black";
         if (username === this.menu.root.settings.username) {
@@ -70,7 +70,7 @@ class WarlockChat {
         this.$history.scrollTop(this.$history[0].scrollHeight);
     }
 
-    render_message(message, color) {
+    render_message(message, color) {    // 渲染message颜色， me->green, others->black
         return $(`<div style="color:${color}">${message}</div>`);
     }
 }

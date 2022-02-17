@@ -19,6 +19,7 @@ def getinfo_web(request):   # 从web上登录
         })
     else:
         player = Player.objects.get(user=user)
+        print(player.user.username)
         return JsonResponse({
             'result': "success",
             'username': player.user.username,

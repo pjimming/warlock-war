@@ -34,7 +34,7 @@ class GameHelper {
 
     add_listening_events() {
         let outer = this;
-        this.$back.click(function() {
+        this.$back.click(function() {   // 返回菜单页面
             outer.hide();
             outer.menu.show();
         });

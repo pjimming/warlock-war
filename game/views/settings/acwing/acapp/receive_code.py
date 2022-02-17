@@ -40,6 +40,7 @@ def receive_code(request):
     players = Player.objects.filter(openid=openid)
     if players.exists():  # 如果该用户已存在，则无需重新获取信息，直接登录即可
         player = players[0]
+        print(player.user.username)
         return JsonResponse({
             'result': "success",
             'username': player.user.username,
@@ -62,6 +63,7 @@ def receive_code(request):
     user = User.objects.create(username=username)
     player = Player.objects.create(user=user, photo=photo, openid=openid)
 
+    print(player.user.username)
     return JsonResponse({
         'result': "success",
         'username': player.user.username,

@@ -33,7 +33,8 @@ class WarlockChat(AsyncWebsocketConsumer):
             await self.init(data)
 
 
-    async def message(self, data):
+    async def message(self, data):  # 发送信息
+        # 存储
         messages = cache.get('history')
         messages.append({
             'username': data['username'],
@@ -41,6 +42,7 @@ class WarlockChat(AsyncWebsocketConsumer):
             'text': data['text'],
         })
         cache.set('history', messages, None)
+        # 发送
         await self.channel_layer.group_send(
             'history',
             {
@@ -52,7 +54,7 @@ class WarlockChat(AsyncWebsocketConsumer):
             }
         )
 
-    async def init(self, data):
+    async def init(self, data): # 初始化Warlock Chat
         await self.channel_layer.group_send(
             self.Ord_username(data['username']),
             {

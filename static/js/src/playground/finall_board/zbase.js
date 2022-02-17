@@ -20,7 +20,7 @@ class FinallBoard extends AcGameObject {
         this.state = "win";
 
         let outer = this;
-        setTimeout(function() {
+        setTimeout(function() { // 2s后自动返回菜单界面
             outer.playground.hide();
             outer.playground.root.menu.show();
         }, 2000);
@@ -30,17 +30,17 @@ class FinallBoard extends AcGameObject {
         this.state = "lose";
 
         let outer = this;
-        setTimeout(function() {
+        setTimeout(function() { // 2s后自动返回菜单界面
             outer.playground.hide();
             outer.playground.root.menu.show();
         }, 2000);
     }
 
-    late_update() {
+    late_update() { // 最后渲染一遍，保证在画布最上面
         this.render();
     }
 
-    render() {
+    render() {  // 渲染
         let height = this.playground.height / 2;
         let width = this.playground.width / 2;
         if (this.state === "win") {

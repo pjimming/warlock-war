@@ -70,11 +70,9 @@ body {
     transform: translate(-50%, -50%);
     background-color: #4CAF50;
     border-radius: 5px;
-}
-
-.ac-game-settings-item > button:hover {
     cursor: url("/static/image/menu/confirm.png"), auto;
 }
+
 
 .ac-game-settings-option {  /*login or register*/
     color: white;
@@ -145,7 +143,7 @@ body {
     user-select: none;
 }
 
-.ac-game-helper-text {
+.ac-game-helper-text {  /*游玩提示文本*/
     background-color: rgba(39,21,28, 0.5);
     border-radius: 20px;
     position: absolute;
@@ -161,7 +159,7 @@ body {
     text-align: center;
 }
 
-.ac-game-helper-back {
+.ac-game-helper-back {  /*游玩提示返回菜单*/
     position: absolute;
     top: calc(50% + 220px);
     left: calc(45%);
@@ -182,7 +180,7 @@ body {
     transition: 100ms;
 }
 
-.ac-game-changelog {
+.ac-game-changelog {    /*更新日志*/
     position: absolute;
     z-index: 100;
     width: 600px;
@@ -195,7 +193,7 @@ body {
     user-select: none;
 }
 
-.ac-game-changelog-logo {
+.ac-game-changelog-logo {   /*更新日志logo*/
     position: relative;
     top: 15px;
     left: calc(50% - 135px);
@@ -207,14 +205,14 @@ body {
     background-image: url("/static/image/menu/logo.png");
 }
 
-.ac-game-changelog-author {
+.ac-game-changelog-author { /*作者*/
     text-align: center;
     font-size: 40px;
     font-style: italic;
     font-weight: bold;
 }
 
-.ac-game-changelog-close {
+.ac-game-changelog-close {  /*关闭更新日志*/
     position: absolute;
     width: 25px;
     height: 25px;
@@ -231,7 +229,7 @@ body {
     background-color: red;
 }
 
-.ac-game-changelog-text {
+.ac-game-changelog-text {   /*更新日志文本*/
     height: calc(100% - 300px);
     padding: 0 20px 50px 20px;
     border-top: solid 1px var(--b-alpha-5);
@@ -357,6 +355,7 @@ body {
     cursor: url("/static/image/menu/text.png"), auto;
     padding: 0px;
 
-    background-color: rgba(222,225,230, 0.2);
+    /*background-color: rgba(222,225,230, 0.2);*/
+    background-color: rgba(255,255,255, 0.5);
 }
 

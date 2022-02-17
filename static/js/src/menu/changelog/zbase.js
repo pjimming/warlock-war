@@ -13,11 +13,16 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.17<br>
+        &emsp;优化：局内聊天系统文本颜色优化<br>
+        &emsp;优化：单机模式内 AI 皮肤颜色增加
+        <br>
+        <br>
         2022.2.16<br>
         &emsp;重磅：Warlock Chat 正式上线<br>
         &emsp;优化：游戏说明页面视觉优化<br>
         &emsp;优化：鼠标指针皮肤全面更新<br>
-        &emsp;优化：游戏界面背景优化<br>
+        &emsp;优化：游戏界面背景全面优化<br>
         &emsp;新增：Warlock War 上线天数显示
         <br>
         <br>
@@ -54,7 +59,7 @@ class Changelog {
 
     add_listening_event() {
         let outer = this;
-        this.$close.click(function() {
+        this.$close.click(function() {  // 关闭changelog
             outer.hide();
         });
     }

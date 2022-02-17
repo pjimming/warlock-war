@@ -9,6 +9,7 @@ class GameMap extends AcGameObject {
         this.playground.$playground.append(this.$canvas);   // 把地图加入到acanvas里面
 
         this.background_img = new Image();
+        // 游戏地图选择
         if (this.playground.mode === "single mode") {
             this.background_img.src = "https://cdn.acwing.com/media/article/image/2022/02/16/106788_4d7828ed8f-single.jpg";
         } else if (this.playground.mode === "multi mode") {
@@ -33,7 +34,7 @@ class GameMap extends AcGameObject {
     }
 
     render() {  // 画图
-        this.ctx.globalAlpha = 0.28;
+        this.ctx.globalAlpha = 0.28;    // 设置透明度，拖尾效果
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.drawImage(this.background_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);

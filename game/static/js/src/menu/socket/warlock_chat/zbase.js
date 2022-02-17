@@ -12,7 +12,7 @@ class WarlockChatSocket {
     receive() {
         let outer = this;
 
-        this.ws.onmessage = function(e) {
+        this.ws.onmessage = function(e) {   // 路由
             let data = JSON.parse(e.data);
 
             let event = data.event;
@@ -24,14 +24,14 @@ class WarlockChatSocket {
         };
     }
 
-    send_init(username) {
+    send_init(username) {   // 向后端发送初始化Warlock Chat的请求
         this.ws.send(JSON.stringify({
             'event': "init",
             'username': username,
         }));
     }
 
-    receive_init(details) {
+    receive_init(details) { // 接收初始化的请求
         for (let i = 0; i < details.length; i++) {
             let detail = details[i];
             let username = detail.username;
@@ -41,7 +41,7 @@ class WarlockChatSocket {
         }
     }
 
-    send_message(username, time, text) {
+    send_message(username, time, text) {    // 向后端发送信息
         this.ws.send(JSON.stringify({
             'event': "message",
             'username': username,
@@ -50,7 +50,7 @@ class WarlockChatSocket {
         }));
     }
 
-    receive_message(username, time, text) {
+    receive_message(username, time, text) { // 接收其他人发送的信息
         if (username !== this.menu.root.settings.username) {
             this.menu.warlock_chat.add_message(username, time, text);
         }
