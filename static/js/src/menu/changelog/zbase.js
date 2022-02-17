@@ -15,7 +15,8 @@ class Changelog {
     <div class="ac-game-changelog-text">
         2022.2.17<br>
         &emsp;优化：局内聊天系统文本颜色优化<br>
-        &emsp;优化：单机模式内 AI 皮肤颜色增加
+        &emsp;优化：单机模式内 AI 皮肤颜色增加<br>
+        &emsp;新增：菜单界面用户信息显示
         <br>
         <br>
         2022.2.16<br>

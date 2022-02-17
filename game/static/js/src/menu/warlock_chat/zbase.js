@@ -4,7 +4,7 @@ class WarlockChat {
 
         this.$title = $(`<div class="message-board-title">Warlock Chat</div>`);
         this.$history = $(`<div class="message-board-history"></div>`);
-        this.$input = $(`<input type="text" class="message-board-input" placeholder="留下你的足迹"></input>`);
+        this.$input = $(`<input type="text" class="message-board-input" placeholder="留下你的足迹">`);
 
         this.$title.show();
         this.$history.show();

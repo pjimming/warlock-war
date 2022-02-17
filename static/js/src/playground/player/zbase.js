@@ -375,9 +375,8 @@ class Player extends AcGameObject { // 游戏对象
 
     on_destroy() {  // 销毁对象
         if (this.character === "me" && this.playground.state === "fighting") {  // 检查是否失败
-            this.playground.state = "over";
+            this.playground.state = "lose";
             this.playground.notice_board.write("您已阵亡，游戏结束。");
-            this.playground.finall_board.lose();
         }
 
         for (let i = 0; i < this.playground.players.length; i++) {
@@ -386,6 +385,10 @@ class Player extends AcGameObject { // 游戏对象
                 this.playground.player_count -= 1;
                 break;
             }
+        }
+
+        if (this.playground.player_count <= 1 && this.playground.state === "lose") {
+            this.playground.finall_board.lose();
         }
     }
 }

@@ -8,11 +8,11 @@ class AcGameMenu {
             游戏说明
         </div>
         <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-single-mode">
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-single-mode" title="除了自己，都是敌人">
             单机模式
         </div>
         <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-multi-mode">
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-multi-mode" title="和真实玩家来一场1v1的勇者对决">
             联网模式
         </div>
         <br>
@@ -40,6 +40,7 @@ class AcGameMenu {
         this.onlinedays = new OnlineDays(this);     // 创建上线天数相关
         this.game_helper = new GameHelper(this);    // 创建游戏说明相关
         this.changelog = new Changelog(this);       // 创建更新日志相关
+        this.user_info = new UserInfo(this);        // 创建用户信息相关
         this.warlock_chat = new WarlockChat(this);  // 创建Warlock Chat
         this.wcs = new WarlockChatSocket(this);     // 创建Warlock Chat Socket
 
@@ -86,12 +87,12 @@ class AcGameMenu {
     }
 
     show() {    //显示menu界面
-        this.onlinedays.show();
+        //this.onlinedays.show();
         this.$menu.show();
     }
 
     hide() {    //关闭menu界面
-        this.onlinedays.hide();
+        //this.onlinedays.hide();
         this.$menu.hide();
     }
 }

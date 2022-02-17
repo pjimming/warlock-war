@@ -296,13 +296,35 @@ body {
 
 .onlinedays {
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: calc(50% - 200px);
     width: 400px;
     height: 30px;
     color: white;
     font-size: 25px;
     text-align: center;
+}
+
+.user-info-photo {
+    position: absolute;
+    top: 10px;
+    right: 270px;
+    width: 48;
+    height: 48;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    cursor: url("/static/image/menu/confirm.png"), auto;
+}
+
+.user-info-username {
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    width: 260px;
+    color: white;
+    font-size: 24px;
+    font-style: italic;
 }
 
 .ac-game-playground {   /*游戏背景，底色为黑*/
