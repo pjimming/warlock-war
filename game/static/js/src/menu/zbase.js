@@ -94,5 +94,6 @@ class AcGameMenu {
     hide() {    //关闭menu界面
         //this.onlinedays.hide();
         this.$menu.hide();
+        this.user_info.hide_settings();
     }
 }

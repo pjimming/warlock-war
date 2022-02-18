@@ -59,7 +59,6 @@ class AcGamePlayground {
         this.width = this.$playground.width();
         this.height = this.$playground.height();
         this.game_map = new GameMap(this);  // 生成地图
-
         this.state = "waiting"; // 游戏状态 waiting -> fighting -> over
         this.notice_board = new NoticeBoard(this);  // 生成提示板
         this.finall_board = new FinallBoard(this);  // 最终界面

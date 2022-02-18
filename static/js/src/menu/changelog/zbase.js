@@ -13,6 +13,10 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.18<br>
+        &emsp;修复：部分情况下，进入游戏后闪退的bug
+        <br>
+        <br>
         2022.2.17<br>
         &emsp;优化：局内聊天系统文本颜色优化<br>
         &emsp;优化：单机模式内 AI 皮肤颜色增加<br>

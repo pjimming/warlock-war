@@ -388,6 +388,7 @@ class Player extends AcGameObject { // 游戏对象
         }
 
         if (this.playground.player_count <= 1 && this.playground.state === "lose") {
+            this.playground.state = "waiting";
             this.playground.finall_board.lose();
         }
     }
