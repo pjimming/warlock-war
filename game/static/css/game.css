@@ -113,7 +113,7 @@ body {
 .ac-game-menu-field {   /*设置菜单位置*/
     width: 200px;
     position: absolute; /*绝对位置*/
-    top: 50%;
+    top: 45%;
     left: calc(180px);
 }
 
@@ -314,7 +314,6 @@ body {
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
-    cursor: url("/static/image/menu/confirm.png"), auto;
 }
 
 .user-info-username {
@@ -327,20 +326,126 @@ body {
     font-style: italic;
 }
 
-.user-info-settings {
-    width: 80px;
+.replace-photo {
     position: absolute;
-    height: 25px;
+    z-index: 100;
+    width: 600px;
+    height: 420px;
+    top: calc(50% - 210px);
+    left: calc(50% - 300px);
     background-color: rgba(255,255,255, 0.8);
-    top: 65px;
-    right: 255px;
-    border-radius: 5px;
+    border-radius: 18px;
+    display: block;
 }
 
-.user-info-settings-change-photo {
-    font-size: 18px;
+.replace-photo-close {  /*关闭设置*/
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    background: rgba(39,21,28, 0.2);
+    color: #fff;
+    right: 5px;
+    top: 5px;
     text-align: center;
     cursor: url("/static/image/menu/confirm.png"), auto;
+}
+
+.replace-photo-close:hover {
+    background-color: red;
+}
+
+.replace-photo-username {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    font-size: 40px;
+    font-style: italic;
+}
+
+.replace-photo-cur-photo-img {
+    position: absolute;
+    top: 85px;
+    left: 50px;
+    height: 100px;
+}
+
+.replace-photo-cur-photo-text {
+    position: absolute;
+    top: 85px;
+    left: 200px;
+    font-size: 18px;
+    cursor: url("/static/image/menu/text.png"), auto;
+}
+
+.replace-photo-cur-photo-url {
+    position: absolute;
+    top: 110px;
+    left: 200px;
+    font-size: 18px;
+    width: 380px;
+    height: 80px;
+    word-break: break-all;
+    overflow-y: auto;
+    user-select: text;
+    cursor: url("/static/image/menu/text.png"), auto;
+}
+
+.replace-photo-cur-photo-url::-webkit-scrollbar {
+    width: 0;
+}
+
+.replace-photo-new-photo-text {
+    position: absolute;
+    top: 200px;
+    left: 50px;
+    font-size: 40px;
+    font-style: italic;
+}
+
+.replace-photo-new-photo-url {
+    position: absolute;
+    top: 255px;
+    left: 50px;
+    width: 500px;
+    height: 30px;
+    font-size: initial;
+    border-radius: 5px;
+    cursor: url("/static/image/menu/text.png"), auto;
+}
+
+.replace-photo-new-photo-tip {
+    position: absolute;
+    top: 300px;
+    left: 50px;
+    width: 500px;
+    font-size: 18px;
+}
+
+.replace-photo-new-photo-confirm {
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(39,21,28, 0.2);
+    color: #fff;
+    right: 50px;
+    top: 360px;
+    text-align: center;
+    font-size: 28px;
+    cursor: url("/static/image/menu/confirm.png"), auto;
+}
+
+.replace-photo-new-photo-confirm:hover {
+    background-color: limegreen;
+}
+
+.replace-photo-error-message {
+    color: red;
+    font-size: 18px;
+    position: absolute;
+    top: 360px;
+    left: 50px;
 }
 
 .ac-game-playground {   /*游戏背景，底色为黑*/

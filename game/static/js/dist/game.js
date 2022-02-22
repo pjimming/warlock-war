@@ -13,6 +13,11 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.22<br>
+        &emsp;祝您在最有爱的日子里，有爱您的人相伴<br>
+        &emsp;新增：菜单界面设置功能（可更换头像）
+        <br>
+        <br>
         2022.2.18<br>
         &emsp;修复：部分情况下，进入游戏后闪退的bug
         <br>
@@ -161,6 +166,102 @@ class OnlineDays {
         this.$onlinedays.hide();
     }
 }
+class ReplacePhoto {
+    constructor(menu) {
+        this.menu = menu;
+
+        this.username = this.menu.user_info.username;
+        this.cur_photo = this.menu.user_info.photo;
+        this.$replace_photo = $(`
+<div class="replace-photo">
+    <div class="replace-photo-username">
+        用户名：${this.username}
+    </div>
+    <img class="replace-photo-cur-photo-img" src="${this.cur_photo}" alt="当前头像">
+    <div class="replace-photo-cur-photo-text">
+        当前头像地址：
+    </div>
+    <div class="replace-photo-cur-photo-url">
+        ${this.cur_photo}
+    </div>
+    <div class="replace-photo-close">
+        ×
+    </div>
+    <div class="replace-photo-new-photo-text">
+        修改头像：
+    </div>
+    <input type="text" class="replace-photo-new-photo-url" placeholder="请在bing中查找图片 前缀例如：https://tse1-mm.cn.bing.net/">
+    <div class="replace-photo-new-photo-tip">
+        &emsp;tips:鼠标右键单击图片，点击“在新标签页中打开图片”，复制图片链接即可。
+    </div>
+    <div class="replace-photo-new-photo-confirm">
+        保存
+    </div>
+    <div class="replace-photo-error-message"></div>
+</div>
+`);
+
+        this.$replace_photo.hide();
+
+        this.menu.$menu.append(this.$replace_photo);
+
+        this.$close = this.$replace_photo.find('.replace-photo-close');
+        this.$confirm = this.$replace_photo.find('.replace-photo-new-photo-confirm');
+        this.$input = this.$replace_photo.find('.replace-photo-new-photo-url');
+        this.$replace_photo_error_message = this.$replace_photo.find('.replace-photo-error-message');
+
+        this.start();
+    }
+
+    start() {
+        this.add_listening_event();
+    }
+
+    add_listening_event() {
+        let outer = this;
+        this.$close.click(function() {
+            outer.hide();
+        });
+        this.$confirm.click(function() {
+            outer.update_photo();
+        });
+        this.$input.keydown(function(e) {
+            if (e.which === 13) {   // key-ENTER
+                outer.update_photo();
+            }
+        });
+    }
+
+    update_photo() {
+        let outer = this;
+        let text = this.$input.val();
+        this.$replace_photo_error_message.empty();
+
+        $.ajax({
+            url: "https://app1356.acapp.acwing.com.cn/menu/replace_photo/",
+            type: "GET",
+            data: {
+                username: outer.username,
+                photo: text,
+            },
+            success: function(resp) {
+                if (resp.result === "success") {
+                    location.reload();
+                } else {
+                    outer.$replace_photo_error_message.html(resp.result);
+                }
+            }
+        });
+    }
+
+    show() {
+        this.$replace_photo.show();
+    }
+
+    hide() {
+        this.$replace_photo.hide();
+    }
+}
 class WarlockChatSocket {
     constructor(menu) {
         this.menu = menu;
@@ -227,57 +328,17 @@ class UserInfo {
         this.username = this.menu.root.settings.username;
         this.$photo = $(`<img class="user-info-photo" src="${this.photo}" alt="您的头像">`);
         this.$username = $(`<div class="user-info-username">${this.username}</div>`);
-        this.$user_settings = $(`
-<div class="user-info-settings">
-    <div class="user-info-settings-change-photo">
-        修改头像
-    </div>
-</div>
-`);
 
         this.$photo.show();
         this.$username.show();
-        this.$user_settings.hide();
 
         this.menu.$menu.append(this.$photo);
         this.menu.$menu.append(this.$username);
-        this.menu.$menu.append(this.$user_settings);
-
-        this.$change_photo = this.$user_settings.find('.user-info-settings-change-photo');
-
-        this.settings_show = false;
 
         this.start();
     }
 
     start() {
-        this.add_listening_event();
-    }
-
-    add_listening_event() {
-        let outer = this;
-
-        this.$photo.click(function() {
-            if (outer.settings_show) {
-                outer.hide_settings();
-            } else {
-                outer.show_settings();
-            }
-        });
-
-        this.$change_photo.click(function() {
-            outer.hide_settings();
-        });
-    }
-
-    hide_settings() {
-        this.$user_settings.hide();
-        this.settings_show = false;
-    }
-
-    show_settings() {
-        this.$user_settings.show();
-        this.settings_show = true;
     }
 }
 class WarlockChat {
@@ -378,7 +439,11 @@ class AcGameMenu {
             更新日志
         </div>
         <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings" title="退出当前账号">
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
+            设置
+        </div>
+        <br>
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-logout" title="退出当前账号">
             退出
         </div>
     </div>
@@ -393,12 +458,14 @@ class AcGameMenu {
         this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');    // 单机模式
         this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');      // 联网模式
         this.$changelog = this.$menu.find('.ac-game-menu-field-item-changelog');        // 更新日志
-        this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');          // 退出
+        this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');          // 设置
+        this.$logout = this.$menu.find('.ac-game-menu-field-item-logout');              // 退出
 
         this.onlinedays = new OnlineDays(this);     // 创建上线天数相关
         this.game_helper = new GameHelper(this);    // 创建游戏说明相关
         this.changelog = new Changelog(this);       // 创建更新日志相关
         this.user_info = new UserInfo(this);        // 创建用户信息相关
+        this.settings = new ReplacePhoto(this);      // 创建设置相关
         this.warlock_chat = new WarlockChat(this);  // 创建Warlock Chat
         this.wcs = new WarlockChatSocket(this);     // 创建Warlock Chat Socket
 
@@ -436,9 +503,14 @@ class AcGameMenu {
             outer.root.playground.show("multi mode");
         });
         this.$changelog.click(function() {      // 更新日志
+            outer.settings.hide();
             outer.changelog.show();
         });
-        this.$settings.click(function() {       // 退出
+        this.$settings.click(function() {       // 设置
+            outer.changelog.hide();
+            outer.settings.show();
+        });
+        this.$logout.click(function() {         // 退出
             outer.changelog.hide();
             outer.root.settings.logout_on_remote();
         });
@@ -452,7 +524,7 @@ class AcGameMenu {
     hide() {    //关闭menu界面
         //this.onlinedays.hide();
         this.$menu.hide();
-        this.user_info.hide_settings();
+        this.settings.hide();
     }
 }
 let AC_GAME_OBJECTS = [];

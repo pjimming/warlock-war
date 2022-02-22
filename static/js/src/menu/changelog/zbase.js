@@ -13,6 +13,11 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.22<br>
+        &emsp;祝您在最有爱的日子里，有爱您的人相伴<br>
+        &emsp;新增：菜单界面设置功能（可更换头像）
+        <br>
+        <br>
         2022.2.18<br>
         &emsp;修复：部分情况下，进入游戏后闪退的bug
         <br>

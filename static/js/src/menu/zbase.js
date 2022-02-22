@@ -20,7 +20,11 @@ class AcGameMenu {
             更新日志
         </div>
         <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings" title="退出当前账号">
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
+            设置
+        </div>
+        <br>
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-logout" title="退出当前账号">
             退出
         </div>
     </div>
@@ -35,12 +39,14 @@ class AcGameMenu {
         this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');    // 单机模式
         this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');      // 联网模式
         this.$changelog = this.$menu.find('.ac-game-menu-field-item-changelog');        // 更新日志
-        this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');          // 退出
+        this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');          // 设置
+        this.$logout = this.$menu.find('.ac-game-menu-field-item-logout');              // 退出
 
         this.onlinedays = new OnlineDays(this);     // 创建上线天数相关
         this.game_helper = new GameHelper(this);    // 创建游戏说明相关
         this.changelog = new Changelog(this);       // 创建更新日志相关
         this.user_info = new UserInfo(this);        // 创建用户信息相关
+        this.settings = new ReplacePhoto(this);      // 创建设置相关
         this.warlock_chat = new WarlockChat(this);  // 创建Warlock Chat
         this.wcs = new WarlockChatSocket(this);     // 创建Warlock Chat Socket
 
@@ -78,9 +84,14 @@ class AcGameMenu {
             outer.root.playground.show("multi mode");
         });
         this.$changelog.click(function() {      // 更新日志
+            outer.settings.hide();
             outer.changelog.show();
         });
-        this.$settings.click(function() {       // 退出
+        this.$settings.click(function() {       // 设置
+            outer.changelog.hide();
+            outer.settings.show();
+        });
+        this.$logout.click(function() {         // 退出
             outer.changelog.hide();
             outer.root.settings.logout_on_remote();
         });
@@ -94,6 +105,6 @@ class AcGameMenu {
     hide() {    //关闭menu界面
         //this.onlinedays.hide();
         this.$menu.hide();
-        this.user_info.hide_settings();
+        this.settings.hide();
     }
 }
