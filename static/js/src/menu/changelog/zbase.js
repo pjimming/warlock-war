@@ -13,6 +13,10 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.23<br>
+        &emsp;优化：合并单机模式和联网模式，简洁菜单界面
+        <br>
+        <br>
         2022.2.22<br>
         &emsp;祝您在最有爱的日子里，有爱您的人相伴<br>
         &emsp;新增：菜单界面设置功能（可更换头像）

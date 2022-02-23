@@ -113,7 +113,7 @@ body {
 .ac-game-menu-field {   /*设置菜单位置*/
     width: 200px;
     position: absolute; /*绝对位置*/
-    top: 45%;
+    top: 48%;
     left: calc(180px);
 }
 
@@ -127,7 +127,7 @@ body {
     background-color: rgba(39,21,28, 0.6);  /*颜色RGB， 透明度*/
     border-radius: 20px;    /*矩形圆角*/
     letter-spacing: 0.5vw;  /*字符间空隙*/
-    cursor: url("/static/image/menu/hand.png"), auto;
+    cursor: url("/static/image/menu/confirm.png"), auto;
 }
 
 .ac-game-menu-field-item:hover {
@@ -446,6 +446,97 @@ body {
     position: absolute;
     top: 360px;
     left: 50px;
+}
+
+.choose-mode {
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/image/menu/background6.gif");
+    background-size: 100% 100%;
+    user-select: none;  /*不可选中字符串*/
+}
+
+.choose-mode-single-mode {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: calc(50% - 150px);
+    right: calc(50% + 150px);
+    color: white;
+    font-size: 35px;
+    font-style: italic;     /*斜体*/
+    text-align: center;
+    background-color: rgba(39,21,28, 0.6);  /*颜色RGB， 透明度*/
+    border-radius: 20px;    /*矩形圆角*/
+    letter-spacing: 0.5vw;  /*字符间空隙*/
+    cursor: url("/static/image/menu/hand.png"), auto;
+}
+
+.choose-mode-single-mode-title {
+    position: relative;
+}
+
+.choose-mode-single-mode-img {
+    position: relative;
+    height: 240px;
+    top: 5px;
+}
+
+.choose-mode-multi-mode {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: calc(50% - 150px);
+    left: calc(50% + 150px);
+    color: white;
+    font-size: 35px;
+    font-style: italic;     /*斜体*/
+    text-align: center;
+    background-color: rgba(39,21,28, 0.6);  /*颜色RGB， 透明度*/
+    border-radius: 20px;    /*矩形圆角*/
+    letter-spacing: 0.5vw;  /*字符间空隙*/
+    cursor: url("/static/image/menu/hand.png"), auto;
+}
+
+.choose-mode-multi-mode-title {
+    position: relative;
+}
+
+.choose-mode-multi-mode-img {
+    position: relative;
+    top: 5px;
+    height: 240px;
+}
+
+.choose-mode-back {
+    position: absolute;
+    width: 200px;
+    height: 48px;
+    top: calc(50% + 300px);
+    left: calc(50% - 100px);
+    color: white;
+    font-size: 35px;
+    font-style: italic;
+    text-align: center;
+    border-radius: 10px;
+    letter-spacing: 0.5vw;
+    cursor: url("/static/image/menu/confirm.png"), auto;
+    background-color: rgba(39,21,28, 0.6);  /*颜色RGB， 透明度*/
+}
+
+.choose-mode-single-mode:hover {
+    transform: scale(1.2);  /*按钮放大*/
+    transition: 100ms;
+}
+
+.choose-mode-multi-mode:hover {
+    transform: scale(1.2);  /*按钮放大*/
+    transition: 100ms;
+}
+
+.choose-mode-back:hover {
+    transform: scale(1.2);  /*按钮放大*/
+    transition: 100ms;
 }
 
 .ac-game-playground {   /*游戏背景，底色为黑*/

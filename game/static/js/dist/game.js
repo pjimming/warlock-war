@@ -1,3 +1,65 @@
+class ChooseMode {
+    constructor(root) {
+        this.root = root;
+        this.$choose_mode = $(`
+<div class="choose-mode">
+    <div class="choose-mode-single-mode" title="除了自己，都是敌人">
+        <img class="choose-mode-single-mode-img" src="/static/image/choose_mode/3.png">
+        <div class="choose-mode-single-mode-title">
+            单机模式
+        </div>
+    </div>
+    <div class="choose-mode-multi-mode" title="和真实玩家来一场1v1的勇者对决">
+        <img class="choose-mode-multi-mode-img" src="/static/image/choose_mode/2.png">
+        <div class="choose-mode-multi-mode-title">
+            联网模式
+        </div>
+    </div>
+    <div class="choose-mode-back">
+        返回
+    </div>
+</div>
+`);
+
+        this.$choose_mode.hide();
+        this.root.$ac_game.append(this.$choose_mode);
+
+        this.$single_mode = this.$choose_mode.find('.choose-mode-single-mode');
+        this.$multi_mode = this.$choose_mode.find('.choose-mode-multi-mode');
+        this.$back = this.$choose_mode.find('.choose-mode-back');
+
+        this.start();
+    }
+
+    start() {
+        this.add_listening_event();
+    }
+
+    add_listening_event() {
+        let outer = this;
+
+        this.$single_mode.click(function() {
+            outer.hide();
+            outer.root.playground.show("single mode");
+        });
+        this.$multi_mode.click(function() {
+            outer.hide();
+            outer.root.playground.show("multi mode");
+        });
+        this.$back.click(function() {
+            outer.hide();
+            outer.root.menu.show();
+        });
+    }
+
+    show() {
+        this.$choose_mode.show();
+    }
+
+    hide() {
+        this.$choose_mode.hide();
+    }
+}
 class Changelog {
     constructor(menu) {
         this.menu = menu;
@@ -13,6 +75,10 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.23<br>
+        &emsp;优化：合并单机模式和联网模式，简洁菜单界面
+        <br>
+        <br>
         2022.2.22<br>
         &emsp;祝您在最有爱的日子里，有爱您的人相伴<br>
         &emsp;新增：菜单界面设置功能（可更换头像）
@@ -170,8 +236,8 @@ class ReplacePhoto {
     constructor(menu) {
         this.menu = menu;
 
-        this.username = this.menu.user_info.username;
-        this.cur_photo = this.menu.user_info.photo;
+        this.username = this.menu.user_info.username;   // 当前用户名
+        this.cur_photo = this.menu.user_info.photo;     // 当前头像地址
         this.$replace_photo = $(`
 <div class="replace-photo">
     <div class="replace-photo-username">
@@ -184,7 +250,7 @@ class ReplacePhoto {
     <div class="replace-photo-cur-photo-url">
         ${this.cur_photo}
     </div>
-    <div class="replace-photo-close">
+    <div class="replace-photo-close" title="关闭">
         ×
     </div>
     <div class="replace-photo-new-photo-text">
@@ -194,7 +260,7 @@ class ReplacePhoto {
     <div class="replace-photo-new-photo-tip">
         &emsp;tips:鼠标右键单击图片，点击“在新标签页中打开图片”，复制图片链接即可。
     </div>
-    <div class="replace-photo-new-photo-confirm">
+    <div class="replace-photo-new-photo-confirm" title="保存当前状态">
         保存
     </div>
     <div class="replace-photo-error-message"></div>
@@ -205,10 +271,10 @@ class ReplacePhoto {
 
         this.menu.$menu.append(this.$replace_photo);
 
-        this.$close = this.$replace_photo.find('.replace-photo-close');
-        this.$confirm = this.$replace_photo.find('.replace-photo-new-photo-confirm');
-        this.$input = this.$replace_photo.find('.replace-photo-new-photo-url');
-        this.$replace_photo_error_message = this.$replace_photo.find('.replace-photo-error-message');
+        this.$close = this.$replace_photo.find('.replace-photo-close');                                 // 关闭
+        this.$confirm = this.$replace_photo.find('.replace-photo-new-photo-confirm');                   // 保存
+        this.$input = this.$replace_photo.find('.replace-photo-new-photo-url');                         // 输入框
+        this.$replace_photo_error_message = this.$replace_photo.find('.replace-photo-error-message');   // 错误信息
 
         this.start();
     }
@@ -219,14 +285,14 @@ class ReplacePhoto {
 
     add_listening_event() {
         let outer = this;
-        this.$close.click(function() {
+        this.$close.click(function() {      // 关闭
             outer.hide();
         });
-        this.$confirm.click(function() {
+        this.$confirm.click(function() {    // 保存
             outer.update_photo();
         });
         this.$input.keydown(function(e) {
-            if (e.which === 13) {   // key-ENTER
+            if (e.which === 13) {           // key-ENTER
                 outer.update_photo();
             }
         });
@@ -427,19 +493,15 @@ class AcGameMenu {
             游戏说明
         </div>
         <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-single-mode" title="除了自己，都是敌人">
-            单机模式
-        </div>
-        <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-multi-mode" title="和真实玩家来一场1v1的勇者对决">
-            联网模式
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-choose-mode" title="准备好了吗，来选择模式吧！">
+            进入游戏
         </div>
         <br>
         <div class="ac-game-menu-field-item ac-game-menu-field-item-changelog">
             更新日志
         </div>
         <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings" title="修改头像">
             设置
         </div>
         <br>
@@ -455,8 +517,7 @@ class AcGameMenu {
 
         // 按钮相关
         this.$helper = this.$menu.find('.ac-game-menu-field-item-helper');              // 游戏说明
-        this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');    // 单机模式
-        this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');      // 联网模式
+        this.$choose_mode = this.$menu.find('.ac-game-menu-field-item-choose-mode');    // 选择模式
         this.$changelog = this.$menu.find('.ac-game-menu-field-item-changelog');        // 更新日志
         this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');          // 设置
         this.$logout = this.$menu.find('.ac-game-menu-field-item-logout');              // 退出
@@ -465,7 +526,7 @@ class AcGameMenu {
         this.game_helper = new GameHelper(this);    // 创建游戏说明相关
         this.changelog = new Changelog(this);       // 创建更新日志相关
         this.user_info = new UserInfo(this);        // 创建用户信息相关
-        this.settings = new ReplacePhoto(this);      // 创建设置相关
+        this.settings = new ReplacePhoto(this);     // 创建设置相关
         this.warlock_chat = new WarlockChat(this);  // 创建Warlock Chat
         this.wcs = new WarlockChatSocket(this);     // 创建Warlock Chat Socket
 
@@ -492,15 +553,10 @@ class AcGameMenu {
             outer.changelog.hide();
             outer.game_helper.show();
         });
-        this.$single_mode.click(function() {    // 单机模式
+        this.$choose_mode.click(function() {    // 选择模式
             outer.hide();
             outer.changelog.hide();
-            outer.root.playground.show("single mode");
-        });
-        this.$multi_mode.click(function() {     // 联网模式
-            outer.hide();
-            outer.changelog.hide();
-            outer.root.playground.show("multi mode");
+            outer.root.choose_mode.show();
         });
         this.$changelog.click(function() {      // 更新日志
             outer.settings.hide();
@@ -710,7 +766,7 @@ class FinallBoard extends AcGameObject {
         let outer = this;
         setTimeout(function() { // 2s后自动返回菜单界面
             outer.playground.hide();
-            outer.playground.root.menu.show();
+            outer.playground.root.choose_mode.show();
         }, 2000);
     }
 
@@ -720,7 +776,7 @@ class FinallBoard extends AcGameObject {
         let outer = this;
         setTimeout(function() { // 2s后自动返回菜单界面
             outer.playground.hide();
-            outer.playground.root.menu.show();
+            outer.playground.root.choose_mode.show();
         }, 2000);
     }
 
@@ -1948,8 +2004,9 @@ export class AcGame {
         // 这个AcWingOS是额外的一个参数，这个参数是你自己自定义的。比如现在我们加了acwingos，当我们在acwing app中打开应用，它在实例化AcGame这个类的时候就会加上AcWingOS这个参数（里面是acwing云端app的一些接口）。那么如果你自己把AcGame部署到了小程序或者哪里，你也可以再添加AcGame的实例化的参数，来表明来自哪个前端。
         this.acwingos = acwingos;
 
-        this.settings = new Settings(this); // 注册登录界面
-        // this.menu = new AcGameMenu(this);   // 菜单界面
+        this.settings = new Settings(this);             // 注册登录界面
+        // this.menu = new AcGameMenu(this);            // 菜单界面
+        this.choose_mode = new ChooseMode(this);        // 选择模式界面
         this.playground = new AcGamePlayground(this);   // 游戏界面
 
         this.start();

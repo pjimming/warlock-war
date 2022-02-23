@@ -8,19 +8,15 @@ class AcGameMenu {
             游戏说明
         </div>
         <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-single-mode" title="除了自己，都是敌人">
-            单机模式
-        </div>
-        <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-multi-mode" title="和真实玩家来一场1v1的勇者对决">
-            联网模式
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-choose-mode" title="准备好了吗，来选择模式吧！">
+            进入游戏
         </div>
         <br>
         <div class="ac-game-menu-field-item ac-game-menu-field-item-changelog">
             更新日志
         </div>
         <br>
-        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings" title="修改头像">
             设置
         </div>
         <br>
@@ -36,8 +32,7 @@ class AcGameMenu {
 
         // 按钮相关
         this.$helper = this.$menu.find('.ac-game-menu-field-item-helper');              // 游戏说明
-        this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');    // 单机模式
-        this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');      // 联网模式
+        this.$choose_mode = this.$menu.find('.ac-game-menu-field-item-choose-mode');    // 选择模式
         this.$changelog = this.$menu.find('.ac-game-menu-field-item-changelog');        // 更新日志
         this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');          // 设置
         this.$logout = this.$menu.find('.ac-game-menu-field-item-logout');              // 退出
@@ -46,7 +41,7 @@ class AcGameMenu {
         this.game_helper = new GameHelper(this);    // 创建游戏说明相关
         this.changelog = new Changelog(this);       // 创建更新日志相关
         this.user_info = new UserInfo(this);        // 创建用户信息相关
-        this.settings = new ReplacePhoto(this);      // 创建设置相关
+        this.settings = new ReplacePhoto(this);     // 创建设置相关
         this.warlock_chat = new WarlockChat(this);  // 创建Warlock Chat
         this.wcs = new WarlockChatSocket(this);     // 创建Warlock Chat Socket
 
@@ -73,15 +68,10 @@ class AcGameMenu {
             outer.changelog.hide();
             outer.game_helper.show();
         });
-        this.$single_mode.click(function() {    // 单机模式
+        this.$choose_mode.click(function() {    // 选择模式
             outer.hide();
             outer.changelog.hide();
-            outer.root.playground.show("single mode");
-        });
-        this.$multi_mode.click(function() {     // 联网模式
-            outer.hide();
-            outer.changelog.hide();
-            outer.root.playground.show("multi mode");
+            outer.root.choose_mode.show();
         });
         this.$changelog.click(function() {      // 更新日志
             outer.settings.hide();

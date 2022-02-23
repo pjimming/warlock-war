@@ -22,7 +22,7 @@ class FinallBoard extends AcGameObject {
         let outer = this;
         setTimeout(function() { // 2s后自动返回菜单界面
             outer.playground.hide();
-            outer.playground.root.menu.show();
+            outer.playground.root.choose_mode.show();
         }, 2000);
     }
 
@@ -32,7 +32,7 @@ class FinallBoard extends AcGameObject {
         let outer = this;
         setTimeout(function() { // 2s后自动返回菜单界面
             outer.playground.hide();
-            outer.playground.root.menu.show();
+            outer.playground.root.choose_mode.show();
         }, 2000);
     }
 
