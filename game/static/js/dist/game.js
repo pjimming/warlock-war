@@ -75,6 +75,12 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.24<br>
+        &emsp;<a class="russia-ukraine-war" href="https://m.weibo.cn/status/4740383357798999?sourceType=weixin&from=10C2095010&wm=9847_0002&featurecode=newtitle" target="_blank">俄乌局势最新进展</a><br>
+        &emsp;修复：Warlock Chat同账号登录发送信息不会实时更新的bug<br>
+        &emsp;修复：Warlock Chat再次登录同一账号会出现之前界面历史记录出现两次的bug
+        <br>
+        <br>
         2022.2.23<br>
         &emsp;优化：合并单机模式和联网模式，简洁菜单界面
         <br>
@@ -331,6 +337,7 @@ class ReplacePhoto {
 class WarlockChatSocket {
     constructor(menu) {
         this.menu = menu;
+        this.uuid = this.menu.uuid;
         this.ws = new WebSocket("wss://app1356.acapp.acwing.com.cn/wss/warlockchat/");
         this.start();
     }
@@ -347,7 +354,7 @@ class WarlockChatSocket {
 
             let event = data.event;
             if (event === "message") {
-                outer.receive_message(data.username, data.time, data.text);
+                outer.receive_message(data.uuid, data.username, data.time, data.text);
             } else if (event === "init") {
                 outer.receive_init(data.details);
             }
@@ -355,9 +362,11 @@ class WarlockChatSocket {
     }
 
     send_init(username) {   // 向后端发送初始化Warlock Chat的请求
+        let outer = this;
         this.ws.send(JSON.stringify({
             'event': "init",
             'username': username,
+            'uuid': outer.uuid,
         }));
     }
 
@@ -372,16 +381,18 @@ class WarlockChatSocket {
     }
 
     send_message(username, time, text) {    // 向后端发送信息
+        let outer = this;
         this.ws.send(JSON.stringify({
             'event': "message",
+            'uuid': outer.uuid,
             'username': username,
             'time': time,
             'text': text,
         }));
     }
 
-    receive_message(username, time, text) { // 接收其他人发送的信息
-        if (username !== this.menu.root.settings.username) {
+    receive_message(uuid, username, time, text) { // 接收其他人发送的信息
+        if (uuid !== this.uuid) {
             this.menu.warlock_chat.add_message(username, time, text);
         }
     }
@@ -441,13 +452,13 @@ class WarlockChat {
                     outer.$input.val("");
                     Date.prototype.format = function (fmt) {
                         var o = {
-                            "M+": this.getMonth() + 1,                 //月份
-                            "d+": this.getDate(),                    //日
-                            "h+": this.getHours(),                   //小时
-                            "m+": this.getMinutes(),                 //分
-                            "s+": this.getSeconds(),                 //秒
-                            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                            "S": this.getMilliseconds()             //毫秒
+                            "M+": this.getMonth() + 1,                      //月份
+                            "d+": this.getDate(),                           //日
+                            "h+": this.getHours(),                          //小时
+                            "m+": this.getMinutes(),                        //分
+                            "s+": this.getSeconds(),                        //秒
+                            "q+": Math.floor((this.getMonth() + 3) / 3),    //季度
+                            "S": this.getMilliseconds()                     //毫秒
                         };
                         if (/(y+)/.test(fmt)) {
                             fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -486,6 +497,7 @@ class WarlockChat {
 class AcGameMenu {
     constructor(root) {
         this.root = root;
+        this.uuid = this.create_uuid();
         this.$menu = $(`
 <div class="ac-game-menu">
     <div class="ac-game-menu-field">
@@ -540,6 +552,15 @@ class AcGameMenu {
 
     start() {
         this.add_listening_events();
+    }
+
+    create_uuid() {
+        let res = "";
+        for (let i = 0; i < 8; i++) {
+            let x = parseInt(Math.floor(Math.random() * 10));
+            res += x;
+        }
+        return res;
     }
 
     add_listening_events() {

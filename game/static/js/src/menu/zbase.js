@@ -1,6 +1,7 @@
 class AcGameMenu {
     constructor(root) {
         this.root = root;
+        this.uuid = this.create_uuid();
         this.$menu = $(`
 <div class="ac-game-menu">
     <div class="ac-game-menu-field">
@@ -55,6 +56,15 @@ class AcGameMenu {
 
     start() {
         this.add_listening_events();
+    }
+
+    create_uuid() {
+        let res = "";
+        for (let i = 0; i < 8; i++) {
+            let x = parseInt(Math.floor(Math.random() * 10));
+            res += x;
+        }
+        return res;
     }
 
     add_listening_events() {

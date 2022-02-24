@@ -8,24 +8,21 @@ class WarlockChat(AsyncWebsocketConsumer):
 
 
     async def disconnect(self, close_code):
-        await self.channel_layer.group_discard('history', self.channel_name);
-
-    def Ord_username(self, username):
-        group_name = ""
-        for ch in username:
-            group_name = group_name + str(ord(ch))
-        return group_name
+        await self.channel_layer.group_discard(self.uuid, self.channel_name)
+        await self.channel_layer.group_discard('history', self.channel_name)
 
     async def receive(self, text_data):
         data = json.loads(text_data)
         event = data['event']
         username = data['username']
 
+        self.uuid = data['uuid']
+
         if not cache.has_key('history'):
             cache.set('history', [], None)
 
         await self.channel_layer.group_add('history', self.channel_name)
-        await self.channel_layer.group_add(self.Ord_username(username), self.channel_name)
+        await self.channel_layer.group_add(self.uuid, self.channel_name)
 
         if event == "message":
             await self.message(data)
@@ -48,6 +45,7 @@ class WarlockChat(AsyncWebsocketConsumer):
             {
                 'type': "group_send_event",
                 'event': "message",
+                'uuid': data['uuid'],
                 'username': data['username'],
                 'time': data['time'],
                 'text': data['text'],
@@ -56,7 +54,7 @@ class WarlockChat(AsyncWebsocketConsumer):
 
     async def init(self, data): # 初始化Warlock Chat
         await self.channel_layer.group_send(
-            self.Ord_username(data['username']),
+            self.uuid,
             {
                 'type': "group_send_event",
                 'event': "init",

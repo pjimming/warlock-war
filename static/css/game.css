@@ -247,6 +247,11 @@ body {
     width: 0;
 }
 
+.russia-ukraine-war {
+    color: green;
+    cursor: url("/static/image/menu/confirm.png"), auto;
+}
+
 .message-board-title {
     position: absolute;
     top: calc(48% - 60px);

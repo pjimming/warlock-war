@@ -13,6 +13,12 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.24<br>
+        &emsp;<a class="russia-ukraine-war" href="https://m.weibo.cn/status/4740383357798999?sourceType=weixin&from=10C2095010&wm=9847_0002&featurecode=newtitle" target="_blank">俄乌局势最新进展</a><br>
+        &emsp;修复：Warlock Chat同账号登录发送信息不会实时更新的bug<br>
+        &emsp;修复：Warlock Chat再次登录同一账号会出现之前界面历史记录出现两次的bug
+        <br>
+        <br>
         2022.2.23<br>
         &emsp;优化：合并单机模式和联网模式，简洁菜单界面
         <br>
