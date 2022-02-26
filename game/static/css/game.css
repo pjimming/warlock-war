@@ -157,6 +157,11 @@ body {
     font-size: 30px;
     font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
     text-align: center;
+    overflow-y: auto;
+}
+
+.ac-game-helper-text::-webkit-scrollbar {
+    width: 0;
 }
 
 .ac-game-helper-back {  /*游玩提示返回菜单*/
@@ -247,7 +252,7 @@ body {
     width: 0;
 }
 
-.russia-ukraine-war {
+.a-link {
     color: green;
     cursor: url("/static/image/menu/confirm.png"), auto;
 }

@@ -120,6 +120,16 @@ class MultiPlayer(AsyncWebsocketConsumer):  # 多人模式后端代码
             }
         )
 
+    async def sprint(self, data):   # 疾跑
+        await self.channel_layer.group_send(
+            self.room_name,
+            {
+                'type': "group_send_event",
+                'event': "sprint",
+                'uuid': data['uuid'],
+            }
+        )
+
 
     async def receive(self, text_data): # 路由
         data = json.loads(text_data)
@@ -136,6 +146,8 @@ class MultiPlayer(AsyncWebsocketConsumer):  # 多人模式后端代码
             await self.blink(data)
         elif event == "message":
             await self.message(data)
+        elif event == "sprint":
+            await self.sprint(data)
 
 
 

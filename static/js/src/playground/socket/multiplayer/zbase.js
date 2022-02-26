@@ -40,6 +40,8 @@ class MultiPlayerSocket {   // 多人服务器接口
                 outer.receive_blink(uuid, data.tx, data.ty);
             } else if (event === "message") {
                 outer.receive_message(uuid, data.username, data.text);
+            } else if (event === "sprint") {
+                outer.receive_sprint(uuid);
             }
         };
     }
@@ -171,5 +173,20 @@ class MultiPlayerSocket {   // 多人服务器接口
 
     receive_message(uuid, username, text) { // 接收信息
         this.playground.chat_field.add_message(username, text);
+    }
+
+    send_sprint() { // 疾跑
+        let outer = this;
+        this.ws.send(JSON.stringify({
+            'event': "sprint",
+            'uuid': outer.uuid,
+        }));
+    }
+
+    receive_sprint(uuid) {  // 疾跑
+        let player = this.get_player(uuid);
+        if (player) {
+            player.sprint();
+        }
     }
 }

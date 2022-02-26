@@ -4,13 +4,13 @@ class ChooseMode {
         this.$choose_mode = $(`
 <div class="choose-mode">
     <div class="choose-mode-single-mode" title="除了自己，都是敌人">
-        <img class="choose-mode-single-mode-img" src="/static/image/choose_mode/3.png">
+        <img class="choose-mode-single-mode-img" src="https://app1356.acapp.acwing.com.cn/static/image/choose_mode/3.png">
         <div class="choose-mode-single-mode-title">
             单机模式
         </div>
     </div>
     <div class="choose-mode-multi-mode" title="和真实玩家来一场1v1的勇者对决">
-        <img class="choose-mode-multi-mode-img" src="/static/image/choose_mode/2.png">
+        <img class="choose-mode-multi-mode-img" src="https://app1356.acapp.acwing.com.cn/static/image/choose_mode/2.png">
         <div class="choose-mode-multi-mode-title">
             联网模式
         </div>
@@ -75,8 +75,13 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.25<br>
+        &emsp;修复：部分平台登录时，选择模式界面图片加载不出的bug<br>
+        &emsp;新增：局内新增“疾跑”技能（按W即可，持续3s，冷却8s，速度提升100%）
+        <br>
+        <br>
         2022.2.24<br>
-        &emsp;<a class="russia-ukraine-war" href="https://m.weibo.cn/status/4740383357798999?sourceType=weixin&from=10C2095010&wm=9847_0002&featurecode=newtitle" target="_blank">俄乌局势最新进展</a><br>
+        &emsp;<a class="a-link" href="https://m.weibo.cn/search?containerid=231522type%3D1%26t%3D10%26q%3D%23%E5%85%B3%E6%B3%A8%E4%BF%84%E4%B9%8C%E5%B1%80%E5%8A%BF%E6%9C%80%E6%96%B0%E8%BF%9B%E5%B1%95%23&extparam=%23%E5%85%B3%E6%B3%A8%E4%BF%84%E4%B9%8C%E5%B1%80%E5%8A%BF%E6%9C%80%E6%96%B0%E8%BF%9B%E5%B1%95%23" target="_blank">俄乌局势最新进展</a><br>
         &emsp;修复：Warlock Chat同账号登录发送信息不会实时更新的bug<br>
         &emsp;修复：Warlock Chat再次登录同一账号会出现之前界面历史记录出现两次的bug
         <br>
@@ -166,6 +171,7 @@ class GameHelper {
         移动：鼠标右键点击桌面即可移动至目标地点<br>
         攻击：按Q键 + 鼠标左键即可向目标处发射火球<br>
         闪现：按F键 + 鼠标左键即可瞬移至目标处<br>
+        疾跑：按W键 速度提升100%，持续3s<br>
         局内聊天(联网模式)：按ENTER键可呼唤出聊天框<br>
         若已输入内容，按ESC键可关闭聊天框，按ENTER键发送；<br>
         若未输入内容，按ENTER键可直接关闭聊天框
@@ -953,6 +959,8 @@ class Player extends AcGameObject { // 游戏对象
         this.damage_y = 0;
         this.damage_speed = 0;
         this.fireballs = [];
+        this.is_sprint = false;
+        this.sprint_time = 0;
 
         this.eps = 0.01;
 
@@ -969,6 +977,10 @@ class Player extends AcGameObject { // 游戏对象
             this.blink_coldtime = 3;
             this.blink_img = new Image();
             this.blink_img.src = "https://cdn.acwing.com/media/article/image/2022/02/13/106788_b212e4278c-blink-f.png";
+
+            this.sprint_coldtime = 8;
+            this.sprint_img = new Image();
+            this.sprint_img.src = "https://cdn.acwing.com/media/article/image/2022/02/24/106788_79431c9595-sprint.png";
         }
     }
 
@@ -1082,8 +1094,26 @@ class Player extends AcGameObject { // 游戏对象
 
                 outer.cur_skill = "blink";
                 return false;
+            } else if (e.which === 87) {
+                if (outer.sprint_coldtime > outer.eps) {
+                    return true;
+                }
+
+                outer.sprint();
+
+                if (outer.playground.mode === "multi mode") {
+                    outer.playground.mps.send_sprint();
+                }
+                return false;
             }
         });
+    }
+
+    sprint() {  // 疾跑
+        this.speed *= 2;      // 移速增大4倍
+        this.sprint_time = 3;   // 3s持续时间
+        this.is_sprint = true;  // 正在疾跑
+        this.sprint_coldtime = 8;
     }
 
     blink(tx, ty) { // 闪现
@@ -1183,6 +1213,8 @@ class Player extends AcGameObject { // 游戏对象
             this.update_coldtime();
         }
 
+        this.update_sprint();
+
         this.update_move();
         this.render();
     }
@@ -1201,6 +1233,24 @@ class Player extends AcGameObject { // 游戏对象
 
         this.blink_coldtime -= this.timedelta / 1000;
         this.blink_coldtime = Math.max(this.blink_coldtime, 0);
+
+        this.sprint_coldtime -= this.timedelta / 1000;
+        this.sprint_coldtime = Math.max(this.sprint_coldtime, 0);
+    }
+
+    update_sprint() {
+        this.sprint_time -= this.timedelta / 1000;
+        this.sprint_time = Math.max(this.sprint_time, 0);
+
+        for (let i = 0; i < this.playground.players.length; i++) {
+            let player = this.playground.players[i];
+            if (player.is_sprint) {
+                if (player.sprint_time < this.eps) {
+                    player.is_sprint = false;
+                    player.speed /= 2;
+                }
+            }
+        }
     }
 
     update_move() { // 更新移动
@@ -1264,7 +1314,7 @@ class Player extends AcGameObject { // 游戏对象
         let scale = this.playground.scale;
 
         // fireball
-        let x = 1.5, y = 0.9, r = 0.04;
+        let x = 1.38, y = 0.9, r = 0.04;
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2, false);
@@ -1283,7 +1333,7 @@ class Player extends AcGameObject { // 游戏对象
         }
 
         // blink
-        x = 1.62, y = 0.9, r = 0.04;
+        x = 1.5, y = 0.9, r = 0.04;
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2, false);
@@ -1301,7 +1351,24 @@ class Player extends AcGameObject { // 游戏对象
             this.ctx.fill();
         }
 
+        // sprint
+        x = 1.62, y = 0.9, r = 0.04;
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2, false);
+        this.ctx.stroke();
+        this.ctx.clip();
+        this.ctx.drawImage(this.sprint_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
+        this.ctx.restore();
 
+        if (this.sprint_coldtime > 0) {  // sprint-coldtime
+            this.ctx.beginPath();
+            this.ctx.moveTo(x * scale, y * scale);
+            this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.sprint_coldtime / 8) - Math.PI / 2, true);
+            this.ctx.lineTo(x * scale, y * scale);
+            this.ctx.fillStyle = "rgba(0, 0, 255, 0.6)";
+            this.ctx.fill();
+        }
     }
 
     on_destroy() {  // 销毁对象
@@ -1476,6 +1543,8 @@ class MultiPlayerSocket {   // 多人服务器接口
                 outer.receive_blink(uuid, data.tx, data.ty);
             } else if (event === "message") {
                 outer.receive_message(uuid, data.username, data.text);
+            } else if (event === "sprint") {
+                outer.receive_sprint(uuid);
             }
         };
     }
@@ -1607,6 +1676,21 @@ class MultiPlayerSocket {   // 多人服务器接口
 
     receive_message(uuid, username, text) { // 接收信息
         this.playground.chat_field.add_message(username, text);
+    }
+
+    send_sprint() { // 疾跑
+        let outer = this;
+        this.ws.send(JSON.stringify({
+            'event': "sprint",
+            'uuid': outer.uuid,
+        }));
+    }
+
+    receive_sprint(uuid) {  // 疾跑
+        let player = this.get_player(uuid);
+        if (player) {
+            player.sprint();
+        }
     }
 }
 class AcGamePlayground {

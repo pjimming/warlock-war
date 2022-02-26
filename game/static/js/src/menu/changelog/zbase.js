@@ -13,8 +13,13 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.25<br>
+        &emsp;修复：部分平台登录时，选择模式界面图片加载不出的bug<br>
+        &emsp;新增：局内新增“疾跑”技能（按W即可，持续3s，冷却8s，速度提升100%）
+        <br>
+        <br>
         2022.2.24<br>
-        &emsp;<a class="russia-ukraine-war" href="https://m.weibo.cn/status/4740383357798999?sourceType=weixin&from=10C2095010&wm=9847_0002&featurecode=newtitle" target="_blank">俄乌局势最新进展</a><br>
+        &emsp;<a class="a-link" href="https://m.weibo.cn/search?containerid=231522type%3D1%26t%3D10%26q%3D%23%E5%85%B3%E6%B3%A8%E4%BF%84%E4%B9%8C%E5%B1%80%E5%8A%BF%E6%9C%80%E6%96%B0%E8%BF%9B%E5%B1%95%23&extparam=%23%E5%85%B3%E6%B3%A8%E4%BF%84%E4%B9%8C%E5%B1%80%E5%8A%BF%E6%9C%80%E6%96%B0%E8%BF%9B%E5%B1%95%23" target="_blank">俄乌局势最新进展</a><br>
         &emsp;修复：Warlock Chat同账号登录发送信息不会实时更新的bug<br>
         &emsp;修复：Warlock Chat再次登录同一账号会出现之前界面历史记录出现两次的bug
         <br>
