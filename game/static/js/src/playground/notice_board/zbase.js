@@ -5,6 +5,7 @@ class NoticeBoard extends AcGameObject {
         this.playground = playground;
         this.ctx = this.playground.game_map.ctx;
         this.text = "已就绪：0人";
+        this.sprint_text = "";
     }
 
     start() {
@@ -12,6 +13,10 @@ class NoticeBoard extends AcGameObject {
 
     write(text) {   // 更改notice_board的内容
         this.text = text;
+    }
+
+    write_sprint(text) {    // 更改sprint时间
+        this.sprint_text = text;
     }
 
     update() {
@@ -23,5 +28,10 @@ class NoticeBoard extends AcGameObject {
         this.ctx.fillStyle = "white";
         this.ctx.textAlign = "center";
         this.ctx.fillText(this.text, this.playground.width / 2, 20);
+    }
+
+    render_sprint() {
+        this.ctx.font = "25px serif";
+        this.ctx.fillText(this.sprint_text, this.playground.width / 2, 50);
     }
 }

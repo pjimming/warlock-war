@@ -75,6 +75,13 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.27<br>
+        &emsp;优化：调整部分技能的参数<br>
+        &emsp;&emsp;疾跑：冷却[8s->5s]，速度提升[100%->80%]<br>
+        &emsp;&emsp;闪现：冷却[3s->8s]<br>
+        &emsp;新增：局内增加疾跑效果剩余时间提示
+        <br>
+        <br>
         2022.2.25<br>
         &emsp;修复：部分平台登录时，选择模式界面图片加载不出的bug<br>
         &emsp;新增：局内新增“疾跑”技能（按W即可，持续3s，冷却8s，速度提升100%）
@@ -171,7 +178,7 @@ class GameHelper {
         移动：鼠标右键点击桌面即可移动至目标地点<br>
         攻击：按Q键 + 鼠标左键即可向目标处发射火球<br>
         闪现：按F键 + 鼠标左键即可瞬移至目标处<br>
-        疾跑：按W键 速度提升100%，持续3s<br>
+        疾跑：按W键 速度提升80%，持续2.5s<br>
         局内聊天(联网模式)：按ENTER键可呼唤出聊天框<br>
         若已输入内容，按ESC键可关闭聊天框，按ENTER键发送；<br>
         若未输入内容，按ENTER键可直接关闭聊天框
@@ -871,6 +878,7 @@ class NoticeBoard extends AcGameObject {
         this.playground = playground;
         this.ctx = this.playground.game_map.ctx;
         this.text = "已就绪：0人";
+        this.sprint_text = "";
     }
 
     start() {
@@ -878,6 +886,10 @@ class NoticeBoard extends AcGameObject {
 
     write(text) {   // 更改notice_board的内容
         this.text = text;
+    }
+
+    write_sprint(text) {    // 更改sprint时间
+        this.sprint_text = text;
     }
 
     update() {
@@ -889,6 +901,11 @@ class NoticeBoard extends AcGameObject {
         this.ctx.fillStyle = "white";
         this.ctx.textAlign = "center";
         this.ctx.fillText(this.text, this.playground.width / 2, 20);
+    }
+
+    render_sprint() {
+        this.ctx.font = "25px serif";
+        this.ctx.fillText(this.sprint_text, this.playground.width / 2, 50);
     }
 }
 class Particle extends AcGameObject {   // 被击打时的粒子效果
@@ -974,11 +991,11 @@ class Player extends AcGameObject { // 游戏对象
             this.fireball_img = new Image();
             this.fireball_img.src = "https://cdn.acwing.com/media/article/image/2022/02/13/106788_b4ad44c18c-fireball.png";
 
-            this.blink_coldtime = 3;
+            this.blink_coldtime = 8;
             this.blink_img = new Image();
             this.blink_img.src = "https://cdn.acwing.com/media/article/image/2022/02/13/106788_b212e4278c-blink-f.png";
 
-            this.sprint_coldtime = 8;
+            this.sprint_coldtime = 5;
             this.sprint_img = new Image();
             this.sprint_img.src = "https://cdn.acwing.com/media/article/image/2022/02/24/106788_79431c9595-sprint.png";
         }
@@ -1110,10 +1127,10 @@ class Player extends AcGameObject { // 游戏对象
     }
 
     sprint() {  // 疾跑
-        this.speed *= 2;      // 移速增大4倍
-        this.sprint_time = 3;   // 3s持续时间
-        this.is_sprint = true;  // 正在疾跑
-        this.sprint_coldtime = 8;
+        this.speed *= 1.8;        // 移速增大80%
+        this.sprint_time = 3;     // 3s持续时间
+        this.is_sprint = true;    // 正在疾跑
+        this.sprint_coldtime = 5;
     }
 
     blink(tx, ty) { // 闪现
@@ -1123,7 +1140,7 @@ class Player extends AcGameObject { // 游戏对象
         this.x += dist * Math.cos(angle);
         this.y += dist * Math.sin(angle);
 
-        this.blink_coldtime = 3;
+        this.blink_coldtime = 8;
         this.move_length = 0;
     }
 
@@ -1241,6 +1258,11 @@ class Player extends AcGameObject { // 游戏对象
     update_sprint() {
         this.sprint_time -= this.timedelta / 1000;
         this.sprint_time = Math.max(this.sprint_time, 0);
+        this.playground.notice_board.write_sprint("疾跑剩余" + this.sprint_time.toFixed(1) + "s");
+
+        if (this.sprint_time > this.eps) {
+            this.playground.notice_board.render_sprint();
+        }
 
         for (let i = 0; i < this.playground.players.length; i++) {
             let player = this.playground.players[i];
@@ -1345,7 +1367,7 @@ class Player extends AcGameObject { // 游戏对象
         if (this.blink_coldtime > 0) {  // blink-coldtime
             this.ctx.beginPath();
             this.ctx.moveTo(x * scale, y * scale);
-            this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.blink_coldtime / 3) - Math.PI / 2, true);
+            this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.blink_coldtime / 8) - Math.PI / 2, true);
             this.ctx.lineTo(x * scale, y * scale);
             this.ctx.fillStyle = "rgba(0, 0, 255, 0.6)";
             this.ctx.fill();
@@ -1364,7 +1386,7 @@ class Player extends AcGameObject { // 游戏对象
         if (this.sprint_coldtime > 0) {  // sprint-coldtime
             this.ctx.beginPath();
             this.ctx.moveTo(x * scale, y * scale);
-            this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.sprint_coldtime / 8) - Math.PI / 2, true);
+            this.ctx.arc(x * scale, y * scale, r * scale, 0 - Math.PI / 2, Math.PI * 2 * (1 - this.sprint_coldtime / 5) - Math.PI / 2, true);
             this.ctx.lineTo(x * scale, y * scale);
             this.ctx.fillStyle = "rgba(0, 0, 255, 0.6)";
             this.ctx.fill();

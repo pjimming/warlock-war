@@ -13,6 +13,13 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.27<br>
+        &emsp;优化：调整部分技能的参数<br>
+        &emsp;&emsp;疾跑：冷却[8s->5s]，速度提升[100%->80%]<br>
+        &emsp;&emsp;闪现：冷却[3s->8s]<br>
+        &emsp;新增：局内增加疾跑效果剩余时间提示
+        <br>
+        <br>
         2022.2.25<br>
         &emsp;修复：部分平台登录时，选择模式界面图片加载不出的bug<br>
         &emsp;新增：局内新增“疾跑”技能（按W即可，持续3s，冷却8s，速度提升100%）
