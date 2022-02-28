@@ -2,7 +2,7 @@ class WarlockChatSocket {
     constructor(menu) {
         this.menu = menu;
         this.uuid = this.menu.uuid;
-        this.ws = new WebSocket("wss://app1356.acapp.acwing.com.cn/wss/warlockchat/");
+        this.ws = new WebSocket("wss://pjmcode.top/wss/warlockchat/");
         this.start();
     }
 

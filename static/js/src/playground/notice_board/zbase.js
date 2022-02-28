@@ -32,6 +32,6 @@ class NoticeBoard extends AcGameObject {
 
     render_sprint() {
         this.ctx.font = "25px serif";
-        this.ctx.fillText(this.sprint_text, this.playground.width / 2, 50);
+        this.ctx.fillText(this.sprint_text, this.playground.width / 8, 25);
     }
 }

@@ -70,7 +70,7 @@ class ReplacePhoto {
         this.$replace_photo_error_message.empty();
 
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/menu/replace_photo/",
+            url: "https://pjmcode.top/menu/replace_photo/",
             type: "GET",
             data: {
                 username: outer.username,

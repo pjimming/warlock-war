@@ -11,7 +11,7 @@ def get_state():
 
 def apply_code(request):
     appid = "1356"  # 应用的唯一id
-    redirect_uri = quote("https://app1356.acapp.acwing.com.cn/settings/acwing/web/receive_code/")   # 接收授权码的地址，需要用urllib.parse.quote对链接进行转义处理
+    redirect_uri = quote("https://pjmcode.top/settings/acwing/web/receive_code/")   # 接收授权码的地址，需要用urllib.parse.quote对链接进行转义处理
     scope = "userinfo"  # 申请授权的范围
     state = get_state() # 防止被攻击
 

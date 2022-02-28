@@ -1,5 +1,8 @@
 class Settings {
     constructor(root) {
+        if (window.location.host === "app1356.acapp.acwing.com.cn") {
+                window.location.replace("https://pjmcode.top/");
+        }
         this.root = root;
         this.platform = "WEB";
         if (this.root.acwingos) {
@@ -10,6 +13,11 @@ class Settings {
 
         this.$settings = $(`
 <div class="ac-game-settings">
+    <footer>
+        <a class="beian-link" href="http://beian.miit.gov.cn/" target="_blank" title="工业和信息化部域名信息备案管理系统">
+            浙ICP备2022005619号-1
+        </a>
+    </footer>
     <div class="ac-game-settings-login">
         <div class="ac-game-settings-title">
             登录
@@ -134,7 +142,7 @@ class Settings {
 
     acwing_login() {    // acwing一键登录
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/acwing/web/apply_code/",
+            url: "https://pjmcode.top/settings/acwing/web/apply_code/",
             type: "GET",
             success: function(resp) {
                 if (resp.result === "success") {
@@ -156,7 +164,7 @@ class Settings {
         this.$login_error_message.empty();
 
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/login/",
+            url: "https://pjmcode.top/settings/login/",
             type: "GET",
             data: {
                 username: username,
@@ -177,7 +185,7 @@ class Settings {
             this.root.acwingos.api.window.close();
         } else {
             $.ajax({
-                url: "https://app1356.acapp.acwing.com.cn/settings/logout/",
+                url: "https://pjmcode.top/settings/logout/",
                 type: "GET",
                 success: function(resp) {
                     if (resp.result === "success") {
@@ -196,7 +204,7 @@ class Settings {
         this.$register_error_message.empty();
 
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/register/",
+            url: "https://pjmcode.top/settings/register/",
             type: "GET",
             data: {
                 username: username,
@@ -243,7 +251,7 @@ class Settings {
         let outer = this;
 
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/acwing/acapp/apply_code/",
+            url: "https://pjmcode.top/settings/acwing/acapp/apply_code/",
             type: "GET",
             success: function(resp) {
                 if (resp.result === "success") {
@@ -258,7 +266,7 @@ class Settings {
     getinfo_web() { // web端获取登录信息
         let outer = this;
         $.ajax({    // 向后端询问信息
-            url: "https://app1356.acapp.acwing.com.cn/settings/getinfo/",
+            url: "https://pjmcode.top/settings/getinfo/",
             type: "GET",
             data: { // 返回所登录的端口
                 platform: outer.platform,

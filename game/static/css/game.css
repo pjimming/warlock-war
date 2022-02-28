@@ -2,6 +2,25 @@ body {
     cursor: url("/static/image/menu/point.png"), auto;
 }
 
+footer {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    font-size: 12px;
+    color: rgba(255,255,255,.6);
+    text-align: center;
+    text-shadow: 0 0 20px rgb(0 0 0 / 80%);
+    white-space: nowrap;
+}
+
+.beian-link {
+    color: white;
+    font-size: 15px;
+    cursor: url("/static/image/menu/confirm.png"), auto;
+}
+
 .ac-game-settings { /*加载登录注册页面的背景*/
     width: 100%;
     height: 100%;

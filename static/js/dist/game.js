@@ -4,13 +4,13 @@ class ChooseMode {
         this.$choose_mode = $(`
 <div class="choose-mode">
     <div class="choose-mode-single-mode" title="除了自己，都是敌人">
-        <img class="choose-mode-single-mode-img" src="https://app1356.acapp.acwing.com.cn/static/image/choose_mode/3.png">
+        <img class="choose-mode-single-mode-img" src="https://pjmcode.top/static/image/choose_mode/3.png">
         <div class="choose-mode-single-mode-title">
             单机模式
         </div>
     </div>
     <div class="choose-mode-multi-mode" title="和真实玩家来一场1v1的勇者对决">
-        <img class="choose-mode-multi-mode-img" src="https://app1356.acapp.acwing.com.cn/static/image/choose_mode/2.png">
+        <img class="choose-mode-multi-mode-img" src="https://pjmcode.top/static/image/choose_mode/2.png">
         <div class="choose-mode-multi-mode-title">
             联网模式
         </div>
@@ -75,6 +75,10 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.28<br>
+        &emsp;重磅：Warlock War启用新域名&ensp;<a class="a-link" href="https://pjmcode.top/">pjmcode.top</a>
+        <br>
+        <br>
         2022.2.27<br>
         &emsp;优化：调整部分技能的参数<br>
         &emsp;&emsp;疾跑：冷却[8s->5s]，速度提升[100%->80%]<br>
@@ -323,7 +327,7 @@ class ReplacePhoto {
         this.$replace_photo_error_message.empty();
 
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/menu/replace_photo/",
+            url: "https://pjmcode.top/menu/replace_photo/",
             type: "GET",
             data: {
                 username: outer.username,
@@ -351,7 +355,7 @@ class WarlockChatSocket {
     constructor(menu) {
         this.menu = menu;
         this.uuid = this.menu.uuid;
-        this.ws = new WebSocket("wss://app1356.acapp.acwing.com.cn/wss/warlockchat/");
+        this.ws = new WebSocket("wss://pjmcode.top/wss/warlockchat/");
         this.start();
     }
 
@@ -513,6 +517,11 @@ class AcGameMenu {
         this.uuid = this.create_uuid();
         this.$menu = $(`
 <div class="ac-game-menu">
+    <footer>
+        <a class="beian-link" href="http://beian.miit.gov.cn/" target="_blank" title="工业和信息化部域名信息备案管理系统">
+           浙ICP备2022005619号-1
+        </a>
+    </footer>
     <div class="ac-game-menu-field">
         <div class="ac-game-menu-field-item ac-game-menu-field-item-helper" title="相关操作说明">
             游戏说明
@@ -905,7 +914,7 @@ class NoticeBoard extends AcGameObject {
 
     render_sprint() {
         this.ctx.font = "25px serif";
-        this.ctx.fillText(this.sprint_text, this.playground.width / 2, 50);
+        this.ctx.fillText(this.sprint_text, this.playground.width / 8, 25);
     }
 }
 class Particle extends AcGameObject {   // 被击打时的粒子效果
@@ -1527,7 +1536,7 @@ class MultiPlayerSocket {   // 多人服务器接口
     constructor(playground) {
         this.playground = playground;
 
-        this.ws = new WebSocket("wss://app1356.acapp.acwing.com.cn/wss/multiplayer/");
+        this.ws = new WebSocket("wss://pjmcode.top/wss/multiplayer/");
 
         this.start();
     }
@@ -1834,6 +1843,9 @@ class AcGamePlayground {
 
 class Settings {
     constructor(root) {
+        if (window.location.host === "app1356.acapp.acwing.com.cn") {
+                window.location.replace("https://pjmcode.top/");
+        }
         this.root = root;
         this.platform = "WEB";
         if (this.root.acwingos) {
@@ -1844,6 +1856,11 @@ class Settings {
 
         this.$settings = $(`
 <div class="ac-game-settings">
+    <footer>
+        <a class="beian-link" href="http://beian.miit.gov.cn/" target="_blank" title="工业和信息化部域名信息备案管理系统">
+            浙ICP备2022005619号-1
+        </a>
+    </footer>
     <div class="ac-game-settings-login">
         <div class="ac-game-settings-title">
             登录
@@ -1968,7 +1985,7 @@ class Settings {
 
     acwing_login() {    // acwing一键登录
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/acwing/web/apply_code/",
+            url: "https://pjmcode.top/settings/acwing/web/apply_code/",
             type: "GET",
             success: function(resp) {
                 if (resp.result === "success") {
@@ -1990,7 +2007,7 @@ class Settings {
         this.$login_error_message.empty();
 
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/login/",
+            url: "https://pjmcode.top/settings/login/",
             type: "GET",
             data: {
                 username: username,
@@ -2011,7 +2028,7 @@ class Settings {
             this.root.acwingos.api.window.close();
         } else {
             $.ajax({
-                url: "https://app1356.acapp.acwing.com.cn/settings/logout/",
+                url: "https://pjmcode.top/settings/logout/",
                 type: "GET",
                 success: function(resp) {
                     if (resp.result === "success") {
@@ -2030,7 +2047,7 @@ class Settings {
         this.$register_error_message.empty();
 
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/register/",
+            url: "https://pjmcode.top/settings/register/",
             type: "GET",
             data: {
                 username: username,
@@ -2077,7 +2094,7 @@ class Settings {
         let outer = this;
 
         $.ajax({
-            url: "https://app1356.acapp.acwing.com.cn/settings/acwing/acapp/apply_code/",
+            url: "https://pjmcode.top/settings/acwing/acapp/apply_code/",
             type: "GET",
             success: function(resp) {
                 if (resp.result === "success") {
@@ -2092,7 +2109,7 @@ class Settings {
     getinfo_web() { // web端获取登录信息
         let outer = this;
         $.ajax({    // 向后端询问信息
-            url: "https://app1356.acapp.acwing.com.cn/settings/getinfo/",
+            url: "https://pjmcode.top/settings/getinfo/",
             type: "GET",
             data: { // 返回所登录的端口
                 platform: outer.platform,

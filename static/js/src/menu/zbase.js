@@ -4,6 +4,11 @@ class AcGameMenu {
         this.uuid = this.create_uuid();
         this.$menu = $(`
 <div class="ac-game-menu">
+    <footer>
+        <a class="beian-link" href="http://beian.miit.gov.cn/" target="_blank" title="工业和信息化部域名信息备案管理系统">
+           浙ICP备2022005619号-1
+        </a>
+    </footer>
     <div class="ac-game-menu-field">
         <div class="ac-game-menu-field-item ac-game-menu-field-item-helper" title="相关操作说明">
             游戏说明

@@ -13,6 +13,10 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.2.28<br>
+        &emsp;重磅：Warlock War启用新域名&ensp;<a class="a-link" href="https://pjmcode.top/">pjmcode.top</a>
+        <br>
+        <br>
         2022.2.27<br>
         &emsp;优化：调整部分技能的参数<br>
         &emsp;&emsp;疾跑：冷却[8s->5s]，速度提升[100%->80%]<br>

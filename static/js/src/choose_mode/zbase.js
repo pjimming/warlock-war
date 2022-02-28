@@ -4,13 +4,13 @@ class ChooseMode {
         this.$choose_mode = $(`
 <div class="choose-mode">
     <div class="choose-mode-single-mode" title="除了自己，都是敌人">
-        <img class="choose-mode-single-mode-img" src="https://app1356.acapp.acwing.com.cn/static/image/choose_mode/3.png">
+        <img class="choose-mode-single-mode-img" src="https://pjmcode.top/static/image/choose_mode/3.png">
         <div class="choose-mode-single-mode-title">
             单机模式
         </div>
     </div>
     <div class="choose-mode-multi-mode" title="和真实玩家来一场1v1的勇者对决">
-        <img class="choose-mode-multi-mode-img" src="https://app1356.acapp.acwing.com.cn/static/image/choose_mode/2.png">
+        <img class="choose-mode-multi-mode-img" src="https://pjmcode.top/static/image/choose_mode/2.png">
         <div class="choose-mode-multi-mode-title">
             联网模式
         </div>
