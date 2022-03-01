@@ -14,7 +14,7 @@ class Changelog {
     </div>
     <div class="ac-game-changelog-text">
         2022.2.28<br>
-        &emsp;重磅：Warlock War启用新域名&ensp;<a class="a-link" href="https://pjmcode.top/">pjmcode.top</a>
+        &emsp;重磅：Warlock War启用新域名&ensp;<a class="a-link" href="https://pjmcode.top/game/">pjmcode.top/game</a>
         <br>
         <br>
         2022.2.27<br>

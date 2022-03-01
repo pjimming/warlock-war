@@ -13,7 +13,7 @@ def get_state():    # 创建校验码，防止站外恶意攻击
 
 def apply_code(request):
     appid = "1356"
-    redirect_uri = quote("https://pjmcode.top/settings/acwing/acapp/receive_code/") # 重定向
+    redirect_uri = quote("https://pjmcode.top/game/settings/acwing/acapp/receive_code/") # 重定向
     scope = "userinfo"
     state = get_state()
 

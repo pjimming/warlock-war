@@ -1,7 +1,7 @@
 class Settings {
     constructor(root) {
         if (window.location.host === "app1356.acapp.acwing.com.cn") {
-                window.location.replace("https://pjmcode.top/");
+            window.location.replace("https://pjmcode.top/game/");
         }
         this.root = root;
         this.platform = "WEB";
@@ -142,7 +142,7 @@ class Settings {
 
     acwing_login() {    // acwing一键登录
         $.ajax({
-            url: "https://pjmcode.top/settings/acwing/web/apply_code/",
+            url: "https://pjmcode.top/game/settings/acwing/web/apply_code/",
             type: "GET",
             success: function(resp) {
                 if (resp.result === "success") {
@@ -164,7 +164,7 @@ class Settings {
         this.$login_error_message.empty();
 
         $.ajax({
-            url: "https://pjmcode.top/settings/login/",
+            url: "https://pjmcode.top/game/settings/login/",
             type: "GET",
             data: {
                 username: username,
@@ -185,7 +185,7 @@ class Settings {
             this.root.acwingos.api.window.close();
         } else {
             $.ajax({
-                url: "https://pjmcode.top/settings/logout/",
+                url: "https://pjmcode.top/game/settings/logout/",
                 type: "GET",
                 success: function(resp) {
                     if (resp.result === "success") {
@@ -204,7 +204,7 @@ class Settings {
         this.$register_error_message.empty();
 
         $.ajax({
-            url: "https://pjmcode.top/settings/register/",
+            url: "https://pjmcode.top/game/settings/register/",
             type: "GET",
             data: {
                 username: username,
@@ -251,7 +251,7 @@ class Settings {
         let outer = this;
 
         $.ajax({
-            url: "https://pjmcode.top/settings/acwing/acapp/apply_code/",
+            url: "https://pjmcode.top/game/settings/acwing/acapp/apply_code/",
             type: "GET",
             success: function(resp) {
                 if (resp.result === "success") {
@@ -266,7 +266,7 @@ class Settings {
     getinfo_web() { // web端获取登录信息
         let outer = this;
         $.ajax({    // 向后端询问信息
-            url: "https://pjmcode.top/settings/getinfo/",
+            url: "https://pjmcode.top/game/settings/getinfo/",
             type: "GET",
             data: { // 返回所登录的端口
                 platform: outer.platform,
