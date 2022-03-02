@@ -30,7 +30,7 @@ footer {
 }
 
 .ac-game-settings-login {   /*加载登录注册页面的小菜单*/
-    height: 450px;
+    height: 440px;
     width: 390px;
     position: relative;
     top: 50%;
@@ -42,25 +42,24 @@ footer {
 
 .ac-game-settings-title {   /*加载排头*/
     color: white;
-    font-size: 42px;
+    font-size: 36px;
     text-align: center;
     padding-top: 27px;
-    margin-bottom: 27px;
 }
 
 .ac-game-settings-username {    /*用户名文本框*/
     display: block;
-    height: 93px;
+    height: 75px;
 }
 
 .ac-game-settings-password {    /*密码文本框*/
     display: block;
-    height: 93px;
+    height: 75px;
 }
 
 .ac-game-settings-submit {  /*登录注册按钮*/
     display: block;
-    height: 93px;
+    height: 75px;
 }
 
 .ac-game-settings-item {    /*菜单内的小对象*/
@@ -70,7 +69,7 @@ footer {
 
 .ac-game-settings-item > input {    /*文本框*/
     width: 90%;
-    line-height: 42px;
+    line-height: 36px;
     position: relative;
     top: 50%;
     left: 50%;
@@ -82,7 +81,7 @@ footer {
 .ac-game-settings-item > button {   /*按钮*/
     color: white;
     width: 90%;
-    line-height: 42px;
+    line-height: 36px;
     position: relative;
     top: 50%;
     left: 50%;
@@ -95,7 +94,7 @@ footer {
 
 .ac-game-settings-option {  /*login or register*/
     color: white;
-    font-size: 27px;
+    font-size: 24px;
     display: inline;
     float: right;
     padding-right: 15px;
@@ -111,7 +110,7 @@ footer {
 }
 
 .ac-game-settings-register {    /*注册界面小菜单*/
-    height: 542px;
+    height: 520px;
     width: 390px;
     position: relative;
     top: 50%;
@@ -119,6 +118,20 @@ footer {
     transform: translate(-50%, -50%);
     background-color: rgba(0,0,0, 0.7);
     border-radius: 10px;
+}
+
+.ac-game-settings-qq-logo {
+    position: relative;
+    padding-top: 5px;
+    left: calc(50% - 35px);
+    cursor: url("/static/image/menu/confirm.png"), auto;
+}
+
+.ac-game-settings-qq-text {
+    color: white;
+    padding-top: 5px;
+    text-align: center;
+    font-size: 18px;
 }
 
 .ac-game-menu { /*加载背景图片*/

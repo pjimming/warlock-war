@@ -76,7 +76,7 @@ class Changelog {
     </div>
     <div class="ac-game-changelog-text">
         2022.2.28<br>
-        &emsp;重磅：Warlock War启用新域名&ensp;<a class="a-link" href="https://pjmcode.top/game/">pjmcode.top/game</a>
+        &emsp;重磅：Warlock War启用新域名&ensp;<a class="a-link" href="https://pjmcode.top/">pjmcode.top</a>
         <br>
         <br>
         2022.2.27<br>
@@ -327,7 +327,7 @@ class ReplacePhoto {
         this.$replace_photo_error_message.empty();
 
         $.ajax({
-            url: "https://pjmcode.top/game/menu/replace_photo/",
+            url: "https://pjmcode.top/warlockwar/menu/replace_photo/",
             type: "GET",
             data: {
                 username: outer.username,
@@ -518,6 +518,8 @@ class AcGameMenu {
         this.$menu = $(`
 <div class="ac-game-menu">
     <footer>
+        &copy;<a class="beian-link" href="http://pjmcode.top/">潘江明</a>
+        |
         <a class="beian-link" href="http://beian.miit.gov.cn/" target="_blank" title="工业和信息化部域名信息备案管理系统">
            浙ICP备2022005619号-1
         </a>
@@ -1844,7 +1846,7 @@ class AcGamePlayground {
 class Settings {
     constructor(root) {
         if (window.location.host === "app1356.acapp.acwing.com.cn") {
-            window.location.replace("https://pjmcode.top/game/");
+            window.location.replace("https://pjmcode.top/warlockwar/");
         }
         this.root = root;
         this.platform = "WEB";
@@ -1857,6 +1859,8 @@ class Settings {
         this.$settings = $(`
 <div class="ac-game-settings">
     <footer>
+        &copy;<a class="beian-link" href="http://pjmcode.top/">潘江明</a>
+        |
         <a class="beian-link" href="http://beian.miit.gov.cn/" target="_blank" title="工业和信息化部域名信息备案管理系统">
             浙ICP备2022005619号-1
         </a>
@@ -1884,6 +1888,11 @@ class Settings {
         </div>
         <div class="ac-game-settings-option">
             注册
+        </div>
+        <br>
+        <img class="ac-game-settings-qq-logo" width=70 src="https://pjmcode.top/static/image/settings/qq.png">
+        <div class="ac-game-settings-qq-text">
+            使用第三方一键登录
         </div>
     </div>
     <div class="ac-game-settings-register">
@@ -1915,6 +1924,11 @@ class Settings {
         <div class="ac-game-settings-option">
             登录
         </div>
+        <br>
+        <img class="ac-game-settings-qq-logo" width=70 src="https://pjmcode.top/static/image/settings/qq.png">
+        <div class="ac-game-settings-qq-text">
+            使用第三方一键登录
+        </div>
     </div>
 </div>
 `);
@@ -1926,8 +1940,6 @@ class Settings {
         this.$login_error_message = this.$login.find(".ac-game-settings-error-message");
         this.$login_register = this.$login.find(".ac-game-settings-option");
 
-        this.$login.hide();
-
         this.$register = this.$settings.find(".ac-game-settings-register");
         this.$register_username = this.$register.find(".ac-game-settings-username input");
         this.$register_password = this.$register.find(".ac-game-settings-password-first input");
@@ -1938,6 +1950,7 @@ class Settings {
 
         this.$register.hide();
 
+        this.$qq_login = this.$settings.find(".ac-game-settings-qq-logo");
 
         this.root.$ac_game.append(this.$settings);
 
@@ -1957,6 +1970,10 @@ class Settings {
         let outer = this;
         this.add_listening_events_login();
         this.add_listening_events_register();
+
+        this.$qq_login.click(function() {   // qq一键登录
+            outer.qq_login();
+        });
     }
 
     add_listening_events_login() {  // 响应登录面板操作
@@ -1983,9 +2000,21 @@ class Settings {
         });
     }
 
+    qq_login() {    // qq一键登录
+        $.ajax({
+            url: "https://pjmcode.top/warlockwar/settings/qq/apply_code/",
+            type: "GET",
+            success: function(resp) {
+                if (resp.result === "success") {
+                    window.location.replace(resp.apply_code_url);
+                }
+            }
+        });
+    }
+
     acwing_login() {    // acwing一键登录
         $.ajax({
-            url: "https://pjmcode.top/game/settings/acwing/web/apply_code/",
+            url: "https://pjmcode.top/warlockwar/settings/acwing/web/apply_code/",
             type: "GET",
             success: function(resp) {
                 if (resp.result === "success") {
@@ -2007,7 +2036,7 @@ class Settings {
         this.$login_error_message.empty();
 
         $.ajax({
-            url: "https://pjmcode.top/game/settings/login/",
+            url: "https://pjmcode.top/warlockwar/settings/login/",
             type: "GET",
             data: {
                 username: username,
@@ -2028,7 +2057,7 @@ class Settings {
             this.root.acwingos.api.window.close();
         } else {
             $.ajax({
-                url: "https://pjmcode.top/game/settings/logout/",
+                url: "https://pjmcode.top/warlockwar/settings/logout/",
                 type: "GET",
                 success: function(resp) {
                     if (resp.result === "success") {
@@ -2047,7 +2076,7 @@ class Settings {
         this.$register_error_message.empty();
 
         $.ajax({
-            url: "https://pjmcode.top/game/settings/register/",
+            url: "https://pjmcode.top/warlockwar/settings/register/",
             type: "GET",
             data: {
                 username: username,
@@ -2094,7 +2123,7 @@ class Settings {
         let outer = this;
 
         $.ajax({
-            url: "https://pjmcode.top/game/settings/acwing/acapp/apply_code/",
+            url: "https://pjmcode.top/warlockwar/settings/acwing/acapp/apply_code/",
             type: "GET",
             success: function(resp) {
                 if (resp.result === "success") {
@@ -2109,7 +2138,7 @@ class Settings {
     getinfo_web() { // web端获取登录信息
         let outer = this;
         $.ajax({    // 向后端询问信息
-            url: "https://pjmcode.top/game/settings/getinfo/",
+            url: "https://pjmcode.top/warlockwar/settings/getinfo/",
             type: "GET",
             data: { // 返回所登录的端口
                 platform: outer.platform,

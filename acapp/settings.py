@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ["119.23.178.70", "app1356.acapp.acwing.com.cn", "pjmcode.top"]
 
 INSTALLED_APPS = [
     'channels',
-    'my_blog',
+    'my_blog.apps.MyBlogConfig',
     'game.apps.GameConfig',
     'django.contrib.admin',
     'django.contrib.auth',

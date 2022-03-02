@@ -5,6 +5,8 @@ class AcGameMenu {
         this.$menu = $(`
 <div class="ac-game-menu">
     <footer>
+        &copy;<a class="beian-link" href="http://pjmcode.top/">潘江明</a>
+        |
         <a class="beian-link" href="http://beian.miit.gov.cn/" target="_blank" title="工业和信息化部域名信息备案管理系统">
            浙ICP备2022005619号-1
         </a>
