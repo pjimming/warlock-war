@@ -7,4 +7,5 @@ urlpatterns = [
     path("", index, name="index"),
     path("article/", include("my_blog.urls.article.index")),
     path("work/", include("my_blog.urls.work.index")),
+    path("aboutme/", include("my_blog.urls.aboutme.index")),
 ]

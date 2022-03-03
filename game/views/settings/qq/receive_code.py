@@ -48,7 +48,7 @@ def receive_code(request):
 
     params = {
             'access_token':access_token,
-            'oauth_consumer_key':"100330589",
+            'oauth_consumer_key':"101998264",
             'openid':openid,
             'fmt' : "json"
     }
