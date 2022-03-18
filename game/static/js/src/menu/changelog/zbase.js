@@ -13,6 +13,10 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.3.8<br>
+        &emsp;重磅：Warlock War实现QQ一键登录功能
+        <br>
+        <br>
         2022.2.28<br>
         &emsp;重磅：Warlock War启用新域名&ensp;<a class="a-link" href="https://pjmcode.top/">pjmcode.top</a>
         <br>
@@ -95,7 +99,7 @@ class Changelog {
 
     add_listening_event() {
         let outer = this;
-        this.$close.click(function() {  // 关闭changelog
+        this.$close.click(function () {  // 关闭changelog
             outer.hide();
         });
     }
