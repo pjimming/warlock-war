@@ -5,6 +5,4 @@ app_name = "my_blog"
 
 urlpatterns = [
     path("", index, name="index"),
-    path("work/", include("my_blog.urls.work.index")),
-    path("aboutme/", include("my_blog.urls.aboutme.index")),
 ]
