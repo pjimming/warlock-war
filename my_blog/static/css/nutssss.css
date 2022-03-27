@@ -1,4 +1,5 @@
 * {
+    cursor: url("/static/image/cursor/yidong.png"), auto;
     margin: 0;
     padding: 0;
 }
@@ -8,6 +9,10 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+}
+
+a {
+    cursor: url("/static/image/cursor/hand.png"), auto;
 }
 
 #box {
