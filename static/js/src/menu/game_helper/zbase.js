@@ -4,7 +4,8 @@ class GameHelper {
         this.$helper = $(`
 <div class="ac-game-helper">
     <div class="ac-game-helper-text">
-        AUTHOR: &emsp;潘江明-CN<br>
+        AUTHOR: &emsp;潘江明
+        <br>
         <br>
         ===推荐PC端游玩===<br>
         移动：鼠标右键点击桌面即可移动至目标地点<br>
@@ -35,7 +36,7 @@ class GameHelper {
 
     add_listening_events() {
         let outer = this;
-        this.$back.click(function() {   // 返回菜单页面
+        this.$back.click(function () {   // 返回菜单页面
             outer.hide();
             outer.menu.show();
         });

@@ -6,7 +6,7 @@ class Changelog {
     <div class="ac-game-changelog-logo"></div>
     <br>
     <div class="ac-game-changelog-author">
-        AUTHOR: &ensp;潘江明-CN
+        AUTHOR: &ensp;潘江明
         <br><br>
     </div>
     <div class="ac-game-changelog-close" title="关闭">
