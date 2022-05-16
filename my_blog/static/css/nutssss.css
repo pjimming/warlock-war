@@ -44,7 +44,7 @@ a {
 .headPhoto {
     width: 8rem;
     height: 8rem;
-    background: url(https://q1.qlogo.cn/g?b=qq&nk=1656071287&s=640) no-repeat;
+    background: url(https://tse1-mm.cn.bing.net/th/id/R-C.b6f8fc05b5fc5773e2727cd4aa8e99c0?rik=G%2f%2f0F1v4oxuHCQ&riu=http%3a%2f%2fwx1.sinaimg.cn%2flarge%2f006DFKaTly1fqjwp6b2i7j30rs0rrwhp.jpg&ehk=hwPkbgu27VnnKz5DaMbR5sejG8eF7XJSaZyiMMSWMEE%3d&risl=&pid=ImgRaw&r=0) no-repeat;
     background-size: cover;
     border-radius: 50%;
     position: relative;
@@ -296,8 +296,7 @@ a {
 }
 
 /* 自适应 */
-@media screen and (max-width: 1250px)
-{
+@media screen and (max-width: 1250px) {
     .meBox {
         margin-left: 3%;
     }
@@ -313,8 +312,7 @@ a {
     }
 }
 
-@media screen and (max-width: 1110px)
-{
+@media screen and (max-width: 1110px) {
     .meBox {
         float: none;
         margin: 100px auto 100px;
@@ -332,8 +330,7 @@ a {
     }
 }
 
-@media screen and (max-width: 768px)
-{
+@media screen and (max-width: 768px) {
     .meBox {
         width: 300px;
     }
@@ -347,7 +344,7 @@ a {
     .meBox-Button a:hover {
         color: rgb(0, 132, 255);
     }
-    
+
     .meBox:hover .meBox-Button a {
         width: 150px;
         margin-top: 0;
