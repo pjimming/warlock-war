@@ -13,6 +13,15 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        2022.6.1<br>
+        &emsp;朋友们，节日快乐🎉
+        <br>
+        <br>
+        2022.5.23<br>
+        &emsp;热烈庆祝Warlock War上线100天🎉<br>
+        &emsp;重磅：Warlock War获得软件著作权
+        <br>
+        <br>
         2022.3.8<br>
         &emsp;重磅：Warlock War实现QQ一键登录功能
         <br>
