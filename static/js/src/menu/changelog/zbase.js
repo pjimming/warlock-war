@@ -13,6 +13,7 @@ class Changelog {
         ×
     </div>
     <div class="ac-game-changelog-text">
+        <br>
         2022.6.1<br>
         &emsp;朋友们，节日快乐🎉
         <br>
