@@ -11,6 +11,16 @@ body {
     background-size: cover;
 }
 
+.bjimg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    object-fit: cover;
+}
+
 a {
     cursor: url("/static/image/cursor/hand.png"), auto;
 }
